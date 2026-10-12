@@ -62,7 +62,7 @@
               "TextDocument": {
                 "@Type": "f3878285",
                 "@Value": {
-                  "TextBlobForSerialisation": "(string)look_up_sub_state_of := STATE.empty;\nFOR depth := LOWER_BOUND(topology_tuples, 1) TO UPPER_BOUND(topology_tuples, 1) DO\n\tIF topology_tuples[depth].superState = super_state THEN\n\t\tlook_up_sub_state_of := topology_tuples[depth].subState;\n\t\tEXIT;\n\tEND_IF\nEND_FOR\n",
+                  "TextBlobForSerialisation": "(string)look_up_sub_state_of := STATE.empty;\nFOR depth := LOWER_BOUND(state_tuples, 1) TO UPPER_BOUND(state_tuples, 1) DO\n\tIF state_tuples[depth].superState = super_state THEN\n\t\tlook_up_sub_state_of := state_tuples[depth].subState;\n\t\tEXIT;\n\tEND_IF\nEND_FOR\n",
                   "LineInfoPersistence": "(string)4ffe8eda-6901-41de-90e0-c3eeb5ce86b0_Impl_LineIds"
                 }
               }
@@ -74,13 +74,13 @@
               "TextDocument": {
                 "@Type": "f3878285",
                 "@Value": {
-                  "TextBlobForSerialisation": "(string)FUNCTION look_up_sub_state_of : STATE\nVAR_INPUT\n\ttopology_tuples: ARRAY[*] OF TopologyTuple;\n\tsuper_state: STATE;\nEND_VAR\nVAR\n\tdepth: DEPTH;\nEND_VAR\n",
+                  "TextBlobForSerialisation": "(string)FUNCTION look_up_sub_state_of : STATE\nVAR_INPUT\n\tstate_tuples: ARRAY[*] OF StateTuple;\n\tsuper_state: STATE;\nEND_VAR\nVAR\n\tdepth: DEPTH;\nEND_VAR\n",
                   "LineInfoPersistence": "(string)4ffe8eda-6901-41de-90e0-c3eeb5ce86b0_Decl_LineIds"
                 }
               }
             }
           },
-          "UniqueIdGenerator": "(string)257",
+          "UniqueIdGenerator": "(string)280",
           "POULevel": {
             "@Type": "8e575c5b:Enum",
             "@Value": "Standard"
