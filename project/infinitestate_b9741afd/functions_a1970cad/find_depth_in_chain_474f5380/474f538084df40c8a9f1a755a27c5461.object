@@ -62,7 +62,7 @@
               "TextDocument": {
                 "@Type": "f3878285",
                 "@Value": {
-                  "TextBlobForSerialisation": "(string)find_depth_in_chain := NOT_DEPTH;\n\nFOR depth := LOWER_BOUND(chain.states, 1) TO UPPER_BOUND(chain.states, 1) DO\n\tIF depth > chain.depth THEN\n\t\tEXIT;\n\tEND_IF\n\n\tIF chain.states[depth] = state THEN\n\t\tfind_depth_in_chain := depth;\n\t\tEXIT;\n\tEND_IF\nEND_FOR\n",
+                  "TextBlobForSerialisation": "(string)find_depth_in_chain := NOT_DEPTH;\n\nFOR depth := LOWER_BOUND(chain.states, 1) TO UPPER_BOUND(chain.states, 1) DO\n\t(* The FOR loop iterates through the states in the chain,\n\t   inclusively from the lower bound to the upper bound, to find the\n\t   depth of the given state. Fail when the scan depth matches or\n\t   exceeds the chain depth. In practice, it will never exceed the\n\t   chain depth. *)\n\tIF depth >= chain.depth THEN\n\t\tEXIT;\n\tEND_IF\n\n\tIF chain.states[depth] = state THEN\n\t\tfind_depth_in_chain := depth;\n\t\tEXIT;\n\tEND_IF\nEND_FOR\n",
                   "LineInfoPersistence": "(string)474f5380-84df-40c8-a9f1-a755a27c5461_Impl_LineIds"
                 }
               }
@@ -74,7 +74,7 @@
               "TextDocument": {
                 "@Type": "f3878285",
                 "@Value": {
-                  "TextBlobForSerialisation": "(string)FUNCTION find_depth_in_chain : DEPTH\nVAR_INPUT\n\tstate : STATE;\nEND_VAR\nVAR_IN_OUT CONSTANT\n\tchain : Chain;\nEND_VAR\nVAR\n\tdepth : DEPTH;\nEND_VAR\n",
+                  "TextBlobForSerialisation": "(string)FUNCTION find_depth_in_chain : DEPTH\nVAR_INPUT\n\tstate : STATE; (* The state whose depth in the chain is to be found *)\nEND_VAR\nVAR_IN_OUT CONSTANT\n\tchain : Chain; (* The chain in which to find the depth of the given state *)\nEND_VAR\nVAR\n\tdepth : DEPTH; (* The current depth being checked in the chain *)\nEND_VAR\n",
                   "LineInfoPersistence": "(string)474f5380-84df-40c8-a9f1-a755a27c5461_Decl_LineIds"
                 }
               }
