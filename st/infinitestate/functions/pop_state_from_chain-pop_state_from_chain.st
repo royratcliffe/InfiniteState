@@ -1,11 +1,11 @@
 (* --- Interface --- *)
 FUNCTION pop_state_from_chain : BOOL
 VAR_IN_OUT
-	state: STATE; (* The state popped from the chain, if successful *)
-	chain: Chain; (* The chain from which to pop the state *)
+	state : STATE; (* The state popped from the chain, if successful *)
+	chain : Chain; (* The chain from which to pop the state *)
 END_VAR
 VAR
-	depth: DEPTH; (* The depth of the chain after pre-decrementing *)
+	depth : DEPTH; (* The depth of the chain after pre-decrementing *)
 END_VAR
 
 (* --- Implementation --- *)

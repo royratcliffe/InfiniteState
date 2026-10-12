@@ -1,10 +1,10 @@
 (* --- Interface --- *)
 FUNCTION push_state_to_chain : BOOL
 VAR_INPUT
-	state: STATE;
+	state : STATE;
 END_VAR
 VAR_IN_OUT
-	chain: Chain;
+	chain : Chain;
 END_VAR
 
 (* --- Implementation --- *)
