@@ -25,11 +25,18 @@ WHILE super_state <> 0 DO
 	super_state := look_up_super_state_of(hierarchy, super_state);
 END_WHILE
 
+(* Pop all states from the original chain. This empties the original
+   chain before transferring states from the reverse chain. As a
+   by-product, the original chain will be empty and cleared before
+   states are transferred from the reverse chain. *)
 WHILE pop_state_from_chain(super_state, chain) DO
 	;
 END_WHILE;
 
-(* Transfer states from the reverse chain back to the original chain. *)
+(* Transfer states from the reverse chain back to the original chain.
+   This will never fail in practice. The reverse chain fits, so the
+   transfer back to the original chain will always succeed. The push
+   check exists for completeness. *)
 WHILE pop_state_from_chain(super_state, reverse_chain) DO
 	IF NOT push_state_to_chain(super_state, chain) THEN
 		RETURN;
