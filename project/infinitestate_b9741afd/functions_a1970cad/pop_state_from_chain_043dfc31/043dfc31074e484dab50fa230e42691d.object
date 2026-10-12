@@ -62,7 +62,7 @@
               "TextDocument": {
                 "@Type": "f3878285",
                 "@Value": {
-                  "TextBlobForSerialisation": "(string)depth := chain.depth - 1;\n\nIF LOWER_BOUND(chain.states, 1) <= depth AND depth <= UPPER_BOUND(chain.states, 1) THEN\n\tchain.depth          := depth;\n\tstate                := chain.states[depth];\n\tchain.states[depth]  := 0;\n\tpop_state_from_chain := TRUE;\nELSE\n\tpop_state_from_chain := FALSE;\nEND_IF\n",
+                  "TextBlobForSerialisation": "(string)(* Pre-decrement the depth of the chain. *)\ndepth := chain.depth - 1;\n\n(* Answer FALSE if the pre-decremented depth is out of bounds, TRUE\n   otherwise. Zero out the popped state in the chain. Not strictly\n   necessary, but helps prevent stale states. *)\nIF LOWER_BOUND(chain.states, 1) <= depth AND depth <= UPPER_BOUND(chain.states, 1) THEN\n\tchain.depth          := depth;\n\tstate                := chain.states[depth];\n\tchain.states[depth]  := 0;\n\tpop_state_from_chain := TRUE;\nELSE\n\tpop_state_from_chain := FALSE;\nEND_IF\n",
                   "LineInfoPersistence": "(string)043dfc31-074e-484d-ab50-fa230e42691d_Impl_LineIds"
                 }
               }
@@ -74,7 +74,7 @@
               "TextDocument": {
                 "@Type": "f3878285",
                 "@Value": {
-                  "TextBlobForSerialisation": "(string)FUNCTION pop_state_from_chain : BOOL\nVAR_IN_OUT\n\tstate: STATE;\n\tchain: Chain;\nEND_VAR\nVAR\n\tdepth: DEPTH;\nEND_VAR\n",
+                  "TextBlobForSerialisation": "(string)FUNCTION pop_state_from_chain : BOOL\nVAR_IN_OUT\n\tstate: STATE; (* The state popped from the chain, if successful *)\n\tchain: Chain; (* The chain from which to pop the state *)\nEND_VAR\nVAR\n\tdepth: DEPTH; (* The depth of the chain after pre-decrementing *)\nEND_VAR\n",
                   "LineInfoPersistence": "(string)043dfc31-074e-484d-ab50-fa230e42691d_Decl_LineIds"
                 }
               }
