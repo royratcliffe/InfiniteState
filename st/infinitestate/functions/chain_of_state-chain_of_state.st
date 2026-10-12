@@ -14,8 +14,7 @@ END_VAR
 
 (* --- Implementation --- *)
 chain_of_state := FALSE;
-
-super_state := state;
+super_state    := state;
 
 WHILE super_state <> 0 DO
 	IF NOT push_state_to_chain(super_state, reverse_chain) THEN

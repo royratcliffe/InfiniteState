@@ -62,7 +62,7 @@
               "TextDocument": {
                 "@Type": "f3878285",
                 "@Value": {
-                  "TextBlobForSerialisation": "(string)chain_of_state := FALSE;\n\nsuper_state := state;\n\nWHILE super_state <> 0 DO\n\tIF NOT push_state_to_chain(super_state, reverse_chain) THEN\n\t\tRETURN;\n\tEND_IF\n\n\tsuper_state := look_up_super_state_of(hierarchy, super_state);\nEND_WHILE\n\n(* Pop all states from the original chain. This empties the original\n   chain before transferring states from the reverse chain. As a\n   by-product, the original chain will be empty and cleared before\n   states are transferred from the reverse chain. *)\nWHILE pop_state_from_chain(super_state, chain) DO\n\t;\nEND_WHILE;\n\n(* Transfer states from the reverse chain back to the original chain.\n   This will never fail in practice. The reverse chain fits, so the\n   transfer back to the original chain will always succeed. The push\n   check exists for completeness. *)\nWHILE pop_state_from_chain(super_state, reverse_chain) DO\n\tIF NOT push_state_to_chain(super_state, chain) THEN\n\t\tRETURN;\n\tEND_IF\nEND_WHILE\n\nchain_of_state := TRUE;\n",
+                  "TextBlobForSerialisation": "(string)chain_of_state := FALSE;\nsuper_state    := state;\n\nWHILE super_state <> 0 DO\n\tIF NOT push_state_to_chain(super_state, reverse_chain) THEN\n\t\tRETURN;\n\tEND_IF\n\n\tsuper_state := look_up_super_state_of(hierarchy, super_state);\nEND_WHILE\n\n(* Pop all states from the original chain. This empties the original\n   chain before transferring states from the reverse chain. As a\n   by-product, the original chain will be empty and cleared before\n   states are transferred from the reverse chain. *)\nWHILE pop_state_from_chain(super_state, chain) DO\n\t;\nEND_WHILE;\n\n(* Transfer states from the reverse chain back to the original chain.\n   This will never fail in practice. The reverse chain fits, so the\n   transfer back to the original chain will always succeed. The push\n   check exists for completeness. *)\nWHILE pop_state_from_chain(super_state, reverse_chain) DO\n\tIF NOT push_state_to_chain(super_state, chain) THEN\n\t\tRETURN;\n\tEND_IF\nEND_WHILE\n\nchain_of_state := TRUE;\n",
                   "LineInfoPersistence": "(string)138c894b-4a03-4afd-bbc2-6da659dfdbcd_Impl_LineIds"
                 }
               }
@@ -80,7 +80,7 @@
               }
             }
           },
-          "UniqueIdGenerator": "(string)406",
+          "UniqueIdGenerator": "(string)490",
           "POULevel": {
             "@Type": "8e575c5b:Enum",
             "@Value": "Standard"
