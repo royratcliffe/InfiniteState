@@ -26,7 +26,7 @@ WHILE super_state <> 0 DO
 		RETURN;
 	END_IF
 
-	super_state := look_up_super_state_of(hierarchy, state);
+	super_state := look_up_super_state_of(hierarchy, super_state);
 END_WHILE
 
 WHILE pop_state_from_chain(super_state, reverse_chain) DO
