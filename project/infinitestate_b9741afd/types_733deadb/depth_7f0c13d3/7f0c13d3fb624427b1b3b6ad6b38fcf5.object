@@ -57,7 +57,7 @@
               "TextDocument": {
                 "@Type": "f3878285",
                 "@Value": {
-                  "TextBlobForSerialisation": "(string)(* Depth type representing the loop index for iterating through topology tuples. *)\nTYPE DEPTH : DINT; END_TYPE\n",
+                  "TextBlobForSerialisation": "(string)(* Depth type representing the loop index for iterating through state\n   topology tuples. Use DINT as the underlying data type, a 32-bit\n   signed integer used as a zero-based array index. LOWER_BOUND and\n   UPPER_BOUND functions answer with this type. *)\nTYPE DEPTH : DINT; END_TYPE\n",
                   "LineInfoPersistence": "(string)7f0c13d3-fb62-4427-b1b3-b6ad6b38fcf5_Decl_LineIds"
                 }
               }
