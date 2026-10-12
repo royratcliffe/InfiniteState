@@ -6,7 +6,7 @@
         "@Value": {
           "Guid": "(Guid)cc7a731b-2db0-414a-bb9b-2a353e2fedd9",
           "ParentGuid": "(Guid)00000000-0000-0000-0000-000000000000",
-          "Name": "(string)StateTuple",
+          "Name": "(string)Tuple",
           "Properties": {
             "@Type": "2c41fa04:IDictionary",
             "@Value": [
@@ -57,13 +57,13 @@
               "TextDocument": {
                 "@Type": "f3878285",
                 "@Value": {
-                  "TextBlobForSerialisation": "(string)TYPE StateTuple :\nSTRUCT\n\tsuperState : STATE;\n\tsubState : STATE;\nEND_STRUCT\nEND_TYPE\n",
+                  "TextBlobForSerialisation": "(string)TYPE Tuple : STRUCT\n\t\tsuperState : STATE;\n\t\tsubState   : STATE;\n\tEND_STRUCT\nEND_TYPE\n",
                   "LineInfoPersistence": "(string)cc7a731b-2db0-414a-bb9b-2a353e2fedd9_Decl_LineIds"
                 }
               }
             }
           },
-          "UniqueIdGenerator": "(string)49"
+          "UniqueIdGenerator": "(string)59"
         }
       },
       "TypeInfos": {
