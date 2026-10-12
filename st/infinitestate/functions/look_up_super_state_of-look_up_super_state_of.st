@@ -14,5 +14,5 @@ FOR depth := LOWER_BOUND(topology_tuples, 1) TO UPPER_BOUND(topology_tuples, 1) 
 	IF topology_tuples[depth].subState = sub_state THEN
 		look_up_super_state_of := topology_tuples[depth].superState;
 		EXIT;
-	END_IF;
-END_FOR;
+	END_IF
+END_FOR
