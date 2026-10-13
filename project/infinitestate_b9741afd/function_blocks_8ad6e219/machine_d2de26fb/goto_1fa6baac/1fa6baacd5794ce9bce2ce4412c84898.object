@@ -38,7 +38,7 @@
               "TextDocument": {
                 "@Type": "f3878285",
                 "@Value": {
-                  "TextBlobForSerialisation": "(string)GoTo := FALSE;\n\nIF NOT chain_of_state(state, hierarchy, chain) THEN\n\tRETURN;\nEND_IF\n\ndepth := lca(THIS^.chain, chain);\n\n{analysis -41}\nWHILE THIS^.chain.depth > depth DO\n\t{analysis -9}\n\tExitState(THIS^.chain.depth - 1);\n\n\t{analysis +9}\n\tIF NOT pop_state_from_chain(sub_state, THIS^.chain) THEN\n\t\tRETURN;\n\tEND_IF\nEND_WHILE\n\nWHILE THIS^.chain.depth < chain.depth DO\n\tIF LOWER_BOUND(chain.states, 1) > depth OR depth > UPPER_BOUND(chain.states, 1) THEN\n\t\tEXIT;\n\tEND_IF\n\n\tIF NOT push_state_to_chain(chain.states[depth], THIS^.chain) THEN\n\t\tRETURN;\n\tEND_IF\n\n\t{analysis -9}\n\tEnterState(THIS^.chain.depth - 1);\n\t{analysis +9}\nEND_WHILE\n\n{analysis +41}\nGoTo := TRUE;\n",
+                  "TextBlobForSerialisation": "(string)GoTo := FALSE;\n\nIF NOT chain_of_state(state, hierarchy, chain) THEN\n\tRETURN;\nEND_IF\n\ndepth := lca(THIS^.chain, chain);\n\n{analysis -41}\nWHILE THIS^.chain.depth > depth DO\n\t{analysis -9}\n\tExitState(THIS^.chain.depth - 1);\n\n\t{analysis +9}\n\tIF NOT pop_state_from_chain(sub_state, THIS^.chain) THEN\n\t\tRETURN;\n\tEND_IF\nEND_WHILE\n\nWHILE THIS^.chain.depth < chain.depth DO\n\tIF NOT push_state_to_chain(state_at_depth(THIS^.chain.depth, chain), THIS^.chain) THEN\n\t\tRETURN;\n\tEND_IF\n\n\t{analysis -9}\n\tEnterState(THIS^.chain.depth - 1);\n\t{analysis +9}\nEND_WHILE\n\n{analysis +41}\nGoTo := TRUE;\n",
                   "LineInfoPersistence": "(string)1fa6baac-d579-4ce9-bce2-ce4412c84898_Impl_LineIds"
                 }
               }

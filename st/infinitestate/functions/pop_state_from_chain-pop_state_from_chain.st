@@ -21,5 +21,5 @@ END_IF
 
 chain.depth          := depth;
 state                := chain.states[depth];
-chain.states[depth]  := 0;
+chain.states[depth]  := EMPTY_STATE;
 pop_state_from_chain := TRUE;

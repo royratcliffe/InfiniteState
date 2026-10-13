@@ -62,7 +62,7 @@
               "TextDocument": {
                 "@Type": "f3878285",
                 "@Value": {
-                  "TextBlobForSerialisation": "(string)push_state_to_chain := FALSE;\n\nIF LOWER_BOUND(chain.states, 1) > chain.depth OR chain.depth > UPPER_BOUND(chain.states, 1) THEN\n\tRETURN;\nEND_IF\n\nchain.states[chain.depth] := state;\nchain.depth               := chain.depth + 1;\npush_state_to_chain       := TRUE;\n",
+                  "TextBlobForSerialisation": "(string)push_state_to_chain := FALSE;\n\nIF state = EMPTY_STATE THEN\n\tRETURN;\nEND_IF\n\nIF LOWER_BOUND(chain.states, 1) > chain.depth OR chain.depth > UPPER_BOUND(chain.states, 1) THEN\n\tRETURN;\nEND_IF\n\nchain.states[chain.depth] := state;\nchain.depth               := chain.depth + 1;\npush_state_to_chain       := TRUE;\n",
                   "LineInfoPersistence": "(string)6e1e82fe-9746-408e-afbc-521e5831e7b3_Impl_LineIds"
                 }
               }
@@ -80,7 +80,7 @@
               }
             }
           },
-          "UniqueIdGenerator": "(string)293",
+          "UniqueIdGenerator": "(string)317",
           "POULevel": {
             "@Type": "8e575c5b:Enum",
             "@Value": "Standard"

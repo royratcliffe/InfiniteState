@@ -11,7 +11,7 @@ VAR
 END_VAR
 
 (* --- Implementation --- *)
-look_up_super_state_of := 0;
+look_up_super_state_of := EMPTY_STATE;
 
 FOR depth := LOWER_BOUND(hierarchy, 1) TO UPPER_BOUND(hierarchy, 1) DO
 	IF hierarchy[depth].subState = state THEN

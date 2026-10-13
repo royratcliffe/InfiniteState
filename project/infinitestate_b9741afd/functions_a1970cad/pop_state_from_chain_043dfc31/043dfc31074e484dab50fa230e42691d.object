@@ -62,7 +62,7 @@
               "TextDocument": {
                 "@Type": "f3878285",
                 "@Value": {
-                  "TextBlobForSerialisation": "(string)pop_state_from_chain := FALSE;\ndepth                := chain.depth - 1; (* pre-decrement the depth of the chain *)\n\n(* Answer FALSE if the pre-decremented depth is out of bounds, TRUE\n   otherwise. Zero out the popped state in the chain. Not strictly\n   necessary, but helps prevent stale states. *)\nIF LOWER_BOUND(chain.states, 1) > depth OR depth > UPPER_BOUND(chain.states, 1) THEN\n\tRETURN;\nEND_IF\n\nchain.depth          := depth;\nstate                := chain.states[depth];\nchain.states[depth]  := 0;\npop_state_from_chain := TRUE;\n",
+                  "TextBlobForSerialisation": "(string)pop_state_from_chain := FALSE;\ndepth                := chain.depth - 1; (* pre-decrement the depth of the chain *)\n\n(* Answer FALSE if the pre-decremented depth is out of bounds, TRUE\n   otherwise. Zero out the popped state in the chain. Not strictly\n   necessary, but helps prevent stale states. *)\nIF LOWER_BOUND(chain.states, 1) > depth OR depth > UPPER_BOUND(chain.states, 1) THEN\n\tRETURN;\nEND_IF\n\nchain.depth          := depth;\nstate                := chain.states[depth];\nchain.states[depth]  := EMPTY_STATE;\npop_state_from_chain := TRUE;\n",
                   "LineInfoPersistence": "(string)043dfc31-074e-484d-ab50-fa230e42691d_Impl_LineIds"
                 }
               }
@@ -80,7 +80,7 @@
               }
             }
           },
-          "UniqueIdGenerator": "(string)445",
+          "UniqueIdGenerator": "(string)467",
           "POULevel": {
             "@Type": "8e575c5b:Enum",
             "@Value": "Standard"

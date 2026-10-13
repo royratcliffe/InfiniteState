@@ -10,6 +10,10 @@ END_VAR
 (* --- Implementation --- *)
 push_state_to_chain := FALSE;
 
+IF state = EMPTY_STATE THEN
+	RETURN;
+END_IF
+
 IF LOWER_BOUND(chain.states, 1) > chain.depth OR chain.depth > UPPER_BOUND(chain.states, 1) THEN
 	RETURN;
 END_IF

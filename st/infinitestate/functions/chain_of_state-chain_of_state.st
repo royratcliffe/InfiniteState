@@ -18,7 +18,7 @@ END_VAR
 chain_of_state := FALSE;
 super_state    := state;
 
-WHILE super_state <> 0 DO
+WHILE super_state <> EMPTY_STATE DO
 	IF NOT push_state_to_chain(super_state, super_chain) THEN
 		RETURN;
 	END_IF

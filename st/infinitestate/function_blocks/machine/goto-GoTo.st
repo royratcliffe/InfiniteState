@@ -33,11 +33,7 @@ WHILE THIS^.chain.depth > depth DO
 END_WHILE
 
 WHILE THIS^.chain.depth < chain.depth DO
-	IF LOWER_BOUND(chain.states, 1) > depth OR depth > UPPER_BOUND(chain.states, 1) THEN
-		EXIT;
-	END_IF
-
-	IF NOT push_state_to_chain(chain.states[depth], THIS^.chain) THEN
+	IF NOT push_state_to_chain(state_at_depth(THIS^.chain.depth, chain), THIS^.chain) THEN
 		RETURN;
 	END_IF
 
