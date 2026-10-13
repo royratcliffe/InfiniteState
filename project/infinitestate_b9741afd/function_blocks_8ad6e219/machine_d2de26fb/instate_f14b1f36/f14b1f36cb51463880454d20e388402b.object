@@ -38,7 +38,7 @@
               "TextDocument": {
                 "@Type": "f3878285",
                 "@Value": {
-                  "TextBlobForSerialisation": "(string)InState := find_depth_in_chain(state, chain) <> ERROR_DEPTH;\n",
+                  "TextBlobForSerialisation": "(string)InState := depth_in_chain(state, chain) <> ERROR_DEPTH;\n",
                   "LineInfoPersistence": "(string)f14b1f36-cb51-4638-8045-4d20e388402b_Impl_LineIds"
                 }
               }

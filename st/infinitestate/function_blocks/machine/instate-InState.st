@@ -5,4 +5,4 @@ VAR_INPUT
 END_VAR
 
 (* --- Implementation --- *)
-InState := find_depth_in_chain(state, chain) <> ERROR_DEPTH;
+InState := depth_in_chain(state, chain) <> ERROR_DEPTH;

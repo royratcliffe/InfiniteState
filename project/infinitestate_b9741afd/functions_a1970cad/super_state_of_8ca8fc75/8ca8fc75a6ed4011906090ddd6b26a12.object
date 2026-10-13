@@ -6,7 +6,7 @@
         "@Value": {
           "Guid": "(Guid)8ca8fc75-a6ed-4011-9060-90ddd6b26a12",
           "ParentGuid": "(Guid)00000000-0000-0000-0000-000000000000",
-          "Name": "(string)look_up_super_state_of",
+          "Name": "(string)super_state_of",
           "Properties": {
             "@Type": "2c41fa04:IDictionary",
             "@Value": [
@@ -62,7 +62,7 @@
               "TextDocument": {
                 "@Type": "f3878285",
                 "@Value": {
-                  "TextBlobForSerialisation": "(string)look_up_super_state_of := EMPTY_STATE;\n\nFOR depth := LOWER_BOUND(hierarchy, 1) TO UPPER_BOUND(hierarchy, 1) DO\n\tIF hierarchy[depth].subState = state THEN\n\t\tlook_up_super_state_of := hierarchy[depth].superState;\n\t\tEXIT;\n\tEND_IF\nEND_FOR\n",
+                  "TextBlobForSerialisation": "(string)super_state_of := EMPTY_STATE;\n\nFOR depth := LOWER_BOUND(hierarchy, 1) TO UPPER_BOUND(hierarchy, 1) DO\n\tIF hierarchy[depth].subState = state THEN\n\t\tsuper_state_of := hierarchy[depth].superState;\n\t\tEXIT;\n\tEND_IF\nEND_FOR\n",
                   "LineInfoPersistence": "(string)8ca8fc75-a6ed-4011-9060-90ddd6b26a12_Impl_LineIds"
                 }
               }
@@ -74,7 +74,7 @@
               "TextDocument": {
                 "@Type": "f3878285",
                 "@Value": {
-                  "TextBlobForSerialisation": "(string)FUNCTION look_up_super_state_of : STATE\nVAR_INPUT\n\tstate : STATE; (* Sub-state for which the super-state is to be looked up *)\nEND_VAR\nVAR_IN_OUT CONSTANT\n\thierarchy : ARRAY[*] OF Tuple; (* Array of state tuples representing the infinite state hierarchy *)\nEND_VAR\nVAR\n\tdepth : DEPTH; (* Loop index for iterating through topology tuples *)\nEND_VAR\n",
+                  "TextBlobForSerialisation": "(string)FUNCTION super_state_of : STATE\nVAR_INPUT\n\tstate : STATE; (* Sub-state for which the super-state is to be looked up *)\nEND_VAR\nVAR_IN_OUT CONSTANT\n\thierarchy : ARRAY[*] OF Tuple; (* Array of state tuples representing the infinite state hierarchy *)\nEND_VAR\nVAR\n\tdepth : DEPTH; (* Loop index for iterating through topology tuples *)\nEND_VAR\n",
                   "LineInfoPersistence": "(string)8ca8fc75-a6ed-4011-9060-90ddd6b26a12_Decl_LineIds"
                 }
               }

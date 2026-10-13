@@ -1,5 +1,5 @@
 (* --- Interface --- *)
-FUNCTION find_depth_in_chain : DEPTH
+FUNCTION depth_in_chain : DEPTH
 VAR_INPUT
 	state : STATE; (* The state whose depth in the chain is to be found *)
 END_VAR
@@ -11,7 +11,7 @@ VAR
 END_VAR
 
 (* --- Implementation --- *)
-find_depth_in_chain := ERROR_DEPTH;
+depth_in_chain := ERROR_DEPTH;
 
 FOR depth := LOWER_BOUND(chain.states, 1) TO UPPER_BOUND(chain.states, 1) DO
 	(* The FOR loop iterates through the states in the chain,
@@ -24,7 +24,7 @@ FOR depth := LOWER_BOUND(chain.states, 1) TO UPPER_BOUND(chain.states, 1) DO
 	END_IF
 
 	IF chain.states[depth] = state THEN
-		find_depth_in_chain := depth;
+		depth_in_chain := depth;
 		EXIT;
 	END_IF
 END_FOR

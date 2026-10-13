@@ -23,7 +23,7 @@ WHILE super_state <> EMPTY_STATE DO
 		RETURN;
 	END_IF
 
-	super_state := look_up_super_state_of(super_state, hierarchy);
+	super_state := super_state_of(super_state, hierarchy);
 END_WHILE
 
 (* Pop all states from the original chain. This empties the original
