@@ -1,5 +1,5 @@
 (* --- Interface --- *)
-METHOD StampAtDepth : SysTimeRtc.SYSTIME
+METHOD StampAtDepth : STAMP
 VAR_INPUT
 	depth : DEPTH;
 END_VAR

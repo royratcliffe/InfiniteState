@@ -50,7 +50,7 @@
               "TextDocument": {
                 "@Type": "f3878285",
                 "@Value": {
-                  "TextBlobForSerialisation": "(string)METHOD StampAtDepth : SysTimeRtc.SYSTIME\nVAR_INPUT\n\tdepth : DEPTH;\nEND_VAR\n",
+                  "TextBlobForSerialisation": "(string)METHOD StampAtDepth : STAMP\nVAR_INPUT\n\tdepth : DEPTH;\nEND_VAR\n",
                   "LineInfoPersistence": "(string)7fbcd937-c33d-4d10-ba8f-a37e6e9d4446_Decl_LineIds"
                 }
               }
