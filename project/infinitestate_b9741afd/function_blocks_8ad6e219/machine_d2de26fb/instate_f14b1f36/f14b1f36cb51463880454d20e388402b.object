@@ -50,7 +50,7 @@
               "TextDocument": {
                 "@Type": "f3878285",
                 "@Value": {
-                  "TextBlobForSerialisation": "(string)METHOD InState : BOOL\nVAR_INPUT\n\tstate: STATE;\nEND_VAR\n",
+                  "TextBlobForSerialisation": "(string)METHOD InState : BOOL\nVAR_INPUT\n\tstate : STATE;\nEND_VAR\n",
                   "LineInfoPersistence": "(string)f14b1f36-cb51-4638-8045-4d20e388402b_Decl_LineIds"
                 }
               }

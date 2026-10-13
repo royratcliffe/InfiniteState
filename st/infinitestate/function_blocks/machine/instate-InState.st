@@ -1,7 +1,7 @@
 (* --- Interface --- *)
 METHOD InState : BOOL
 VAR_INPUT
-	state: STATE;
+	state : STATE;
 END_VAR
 
 (* --- Implementation --- *)
