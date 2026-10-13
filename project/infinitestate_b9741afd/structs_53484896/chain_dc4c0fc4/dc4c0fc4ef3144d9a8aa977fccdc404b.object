@@ -57,13 +57,13 @@
               "TextDocument": {
                 "@Type": "f3878285",
                 "@Value": {
-                  "TextBlobForSerialisation": "(string)TYPE Chain : STRUCT\n\t\tstates : ARRAY[0..MAX_DEPTH] OF STATE;\n\t\tdepth  : DEPTH;\n\tEND_STRUCT\nEND_TYPE\n",
+                  "TextBlobForSerialisation": "(string)TYPE Chain : STRUCT\n\t\tstates : ARRAY[LOWER_DEPTH..UPPER_DEPTH] OF STATE;\n\t\tdepth  : DEPTH;\n\tEND_STRUCT\nEND_TYPE\n",
                   "LineInfoPersistence": "(string)dc4c0fc4-ef31-44d9-a8aa-977fccdc404b_Decl_LineIds"
                 }
               }
             }
           },
-          "UniqueIdGenerator": "(string)80"
+          "UniqueIdGenerator": "(string)105"
         }
       },
       "TypeInfos": {
