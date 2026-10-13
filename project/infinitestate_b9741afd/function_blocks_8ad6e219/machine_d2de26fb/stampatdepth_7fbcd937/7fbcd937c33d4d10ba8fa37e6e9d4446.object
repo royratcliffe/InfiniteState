@@ -38,7 +38,7 @@
               "TextDocument": {
                 "@Type": "f3878285",
                 "@Value": {
-                  "TextBlobForSerialisation": "(string)StampAtDepth := ULINT#0;\n\nIF depth = ERROR_DEPTH THEN\n\tRETURN;\nEND_IF\n\nIF LOWER_BOUND(stamps, 1) > depth OR depth > UPPER_BOUND(stamps, 1) THEN\n\tRETURN;\nEND_IF\n\nStampAtDepth := stamps[depth];\n",
+                  "TextBlobForSerialisation": "(string)StampAtDepth := EMPTY_STAMP;\n\nIF depth = ERROR_DEPTH THEN\n\tRETURN;\nEND_IF\n\nIF LOWER_BOUND(stamps, 1) > depth OR depth > UPPER_BOUND(stamps, 1) THEN\n\tRETURN;\nEND_IF\n\nStampAtDepth := stamps[depth];\n",
                   "LineInfoPersistence": "(string)7fbcd937-c33d-4d10-ba8f-a37e6e9d4446_Impl_LineIds"
                 }
               }

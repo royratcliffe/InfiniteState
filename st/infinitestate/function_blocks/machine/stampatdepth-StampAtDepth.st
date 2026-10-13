@@ -5,7 +5,7 @@ VAR_INPUT
 END_VAR
 
 (* --- Implementation --- *)
-StampAtDepth := ULINT#0;
+StampAtDepth := EMPTY_STAMP;
 
 IF depth = ERROR_DEPTH THEN
 	RETURN;

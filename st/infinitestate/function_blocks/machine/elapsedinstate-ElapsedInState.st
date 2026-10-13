@@ -4,12 +4,12 @@ VAR_INPUT
 	state : STATE;
 END_VAR
 VAR
-	now   : SysTimeRtc.SYSTIME;
-	stamp : SysTimeRtc.SYSTIME;
+	now   : STAMP;
+	stamp : STAMP;
 END_VAR
 
 (* --- Implementation --- *)
-ElapsedInState := ULINT#0;
+ElapsedInState := EMPTY_STAMP;
 
 IF SysTimeRtcHighResGet(now) <> CmpErrors.Errors.ERR_OK THEN
 	RETURN;
@@ -17,7 +17,7 @@ END_IF
 
 stamp := StampInState(state);
 
-IF stamp = ULINT#0 THEN
+IF stamp = EMPTY_STAMP THEN
 	RETURN;
 END_IF
 

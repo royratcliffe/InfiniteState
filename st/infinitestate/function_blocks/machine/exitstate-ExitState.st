@@ -11,5 +11,5 @@ IF LOWER_BOUND(stamps, 1) > depth OR depth > UPPER_BOUND(stamps, 1) THEN
 	RETURN;
 END_IF
 
-stamps[depth] := ULINT#0;
+stamps[depth] := EMPTY_STAMP;
 ExitState     := TRUE;
