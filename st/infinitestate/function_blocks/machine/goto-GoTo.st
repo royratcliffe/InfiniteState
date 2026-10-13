@@ -31,6 +31,7 @@ WHILE depth < chain.depth DO
 
 	depth := depth + 1;
 END_WHILE
+{analysis +62}
 
 {analysis -41}
 WHILE THIS^.chain.depth > depth DO
@@ -44,5 +45,6 @@ WHILE THIS^.chain.depth < chain.depth DO
 		RETURN;
 	END_IF
 END_WHILE
+{analysis +41}
 
 GoTo := TRUE;
