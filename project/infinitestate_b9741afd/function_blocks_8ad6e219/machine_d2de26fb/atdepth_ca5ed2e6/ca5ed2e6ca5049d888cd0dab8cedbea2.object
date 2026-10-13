@@ -38,7 +38,7 @@
               "TextDocument": {
                 "@Type": "f3878285",
                 "@Value": {
-                  "TextBlobForSerialisation": "(string)AtDepth := 0;\n\nIF LOWER_BOUND(chain.states, 1) > depth OR depth > UPPER_BOUND(chain.states, 1) THEN\n\tRETURN;\nEND_IF\n\nIF depth > chain.depth THEN\n\tRETURN;\nEND_IF\n\nAtDepth := chain.states[depth];\n",
+                  "TextBlobForSerialisation": "(string)AtDepth := EMPTY_STATE;\n\nIF LOWER_BOUND(chain.states, 1) > depth OR depth > UPPER_BOUND(chain.states, 1) THEN\n\tRETURN;\nEND_IF\n\nIF depth > chain.depth THEN\n\tRETURN;\nEND_IF\n\nAtDepth := chain.states[depth];\n",
                   "LineInfoPersistence": "(string)ca5ed2e6-ca50-49d8-88cd-0dab8cedbea2_Impl_LineIds"
                 }
               }

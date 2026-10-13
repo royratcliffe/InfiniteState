@@ -5,7 +5,7 @@ VAR_INPUT
 END_VAR
 
 (* --- Implementation --- *)
-AtDepth := 0;
+AtDepth := EMPTY_STATE;
 
 IF LOWER_BOUND(chain.states, 1) > depth OR depth > UPPER_BOUND(chain.states, 1) THEN
 	RETURN;
