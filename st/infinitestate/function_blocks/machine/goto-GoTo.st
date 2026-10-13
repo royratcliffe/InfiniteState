@@ -8,7 +8,7 @@ VAR_IN_OUT CONSTANT
 END_VAR
 VAR
 	chain     : Chain;
-	depth     : DEPTH := 0;
+	depth     : DEPTH;
 	sub_state : STATE;
 END_VAR
 
@@ -19,20 +19,8 @@ IF NOT chain_of_state(state, hierarchy, chain) THEN
 	RETURN;
 END_IF
 
-{analysis -62}
-WHILE depth < chain.depth DO
-	IF depth = THIS^.chain.depth THEN
-		EXIT;
-	END_IF
+depth := lca(THIS^.chain, chain);
 
-	IF THIS^.chain.states[depth] <> chain.states[depth] THEN
-		EXIT;
-	END_IF
-
-	depth := depth + 1;
-END_WHILE
-
-{analysis +62}
 {analysis -41}
 WHILE THIS^.chain.depth > depth DO
 	{analysis -9}
@@ -45,6 +33,10 @@ WHILE THIS^.chain.depth > depth DO
 END_WHILE
 
 WHILE THIS^.chain.depth < chain.depth DO
+	IF LOWER_BOUND(chain.states, 1) > depth OR depth > UPPER_BOUND(chain.states, 1) THEN
+		EXIT;
+	END_IF
+
 	IF NOT push_state_to_chain(chain.states[depth], THIS^.chain) THEN
 		RETURN;
 	END_IF
