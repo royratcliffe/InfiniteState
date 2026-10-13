@@ -4,9 +4,9 @@
       "Graph": {
         "@Type": "81297157",
         "@Value": {
-          "Guid": "(Guid)cc7a731b-2db0-414a-bb9b-2a353e2fedd9",
+          "Guid": "(Guid)dc4c0fc4-ef31-44d9-a8aa-977fccdc404b",
           "ParentGuid": "(Guid)00000000-0000-0000-0000-000000000000",
-          "Name": "(string)StateTuple",
+          "Name": "(string)Chain",
           "Properties": {
             "@Type": "2c41fa04:IDictionary",
             "@Value": [
@@ -57,13 +57,13 @@
               "TextDocument": {
                 "@Type": "f3878285",
                 "@Value": {
-                  "TextBlobForSerialisation": "(string)TYPE StateTuple :\nSTRUCT\n\tsuperState : STATE;\n\tsubState : STATE;\nEND_STRUCT\nEND_TYPE\n",
-                  "LineInfoPersistence": "(string)cc7a731b-2db0-414a-bb9b-2a353e2fedd9_Decl_LineIds"
+                  "TextBlobForSerialisation": "(string)TYPE Chain : STRUCT\n\t\tstates : ARRAY[LOWER_DEPTH..UPPER_DEPTH] OF STATE;\n\t\tdepth  : DEPTH;\n\tEND_STRUCT\nEND_TYPE\n",
+                  "LineInfoPersistence": "(string)dc4c0fc4-ef31-44d9-a8aa-977fccdc404b_Decl_LineIds"
                 }
               }
             }
           },
-          "UniqueIdGenerator": "(string)49"
+          "UniqueIdGenerator": "(string)115"
         }
       },
       "TypeInfos": {

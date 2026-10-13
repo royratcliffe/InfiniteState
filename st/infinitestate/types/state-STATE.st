@@ -1,2 +1,3 @@
 (* --- Interface --- *)
-TYPE STATE : (empty); END_TYPE
+TYPE STATE : UINT;
+END_TYPE

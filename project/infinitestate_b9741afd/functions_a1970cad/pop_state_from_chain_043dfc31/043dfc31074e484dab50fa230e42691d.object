@@ -4,9 +4,9 @@
       "Graph": {
         "@Type": "81297157",
         "@Value": {
-          "Guid": "(Guid)8ca8fc75-a6ed-4011-9060-90ddd6b26a12",
+          "Guid": "(Guid)043dfc31-074e-484d-ab50-fa230e42691d",
           "ParentGuid": "(Guid)00000000-0000-0000-0000-000000000000",
-          "Name": "(string)look_up_super_state_of",
+          "Name": "(string)pop_state_from_chain",
           "Properties": {
             "@Type": "2c41fa04:IDictionary",
             "@Value": [
@@ -62,8 +62,8 @@
               "TextDocument": {
                 "@Type": "f3878285",
                 "@Value": {
-                  "TextBlobForSerialisation": "(string)look_up_super_state_of := STATE.empty;\nFOR depth := LOWER_BOUND(state_tuples, 1) TO UPPER_BOUND(state_tuples, 1) DO\n\tIF state_tuples[depth].subState = sub_state THEN\n\t\tlook_up_super_state_of := state_tuples[depth].superState;\n\t\tEXIT;\n\tEND_IF\nEND_FOR\n",
-                  "LineInfoPersistence": "(string)8ca8fc75-a6ed-4011-9060-90ddd6b26a12_Impl_LineIds"
+                  "TextBlobForSerialisation": "(string)pop_state_from_chain := FALSE;\ndepth                := chain.depth - 1; (* pre-decrement the depth of the chain *)\n\n(* Answer FALSE if the pre-decremented depth is out of bounds, TRUE\n   otherwise. Zero out the popped state in the chain. Not strictly\n   necessary, but helps prevent stale states. *)\nIF LOWER_BOUND(chain.states, 1) > depth OR depth > UPPER_BOUND(chain.states, 1) THEN\n\tRETURN;\nEND_IF\n\nchain.depth          := depth;\nstate                := chain.states[depth];\nchain.states[depth]  := EMPTY_STATE;\npop_state_from_chain := TRUE;\n",
+                  "LineInfoPersistence": "(string)043dfc31-074e-484d-ab50-fa230e42691d_Impl_LineIds"
                 }
               }
             }
@@ -74,13 +74,13 @@
               "TextDocument": {
                 "@Type": "f3878285",
                 "@Value": {
-                  "TextBlobForSerialisation": "(string)FUNCTION look_up_super_state_of : STATE\nVAR_INPUT\n\t(* Array of state tuples representing the infinite state hierarchy *)\n\tstate_tuples: ARRAY[*] OF StateTuple;\n\t(* Sub-state for which the super-state is to be looked up *)\n\tsub_state: STATE;\nEND_VAR\nVAR\n\t(* Loop index for iterating through state tuples *)\n\tdepth: DEPTH;\nEND_VAR\n",
-                  "LineInfoPersistence": "(string)8ca8fc75-a6ed-4011-9060-90ddd6b26a12_Decl_LineIds"
+                  "TextBlobForSerialisation": "(string)FUNCTION pop_state_from_chain : BOOL\nVAR_IN_OUT\n\tstate : STATE; (* The state popped from the chain, if successful *)\n\tchain : Chain; (* The chain from which to pop the state *)\nEND_VAR\nVAR\n\tdepth : DEPTH; (* The depth of the chain after pre-decrementing *)\nEND_VAR\n",
+                  "LineInfoPersistence": "(string)043dfc31-074e-484d-ab50-fa230e42691d_Decl_LineIds"
                 }
               }
             }
           },
-          "UniqueIdGenerator": "(string)302",
+          "UniqueIdGenerator": "(string)467",
           "POULevel": {
             "@Type": "8e575c5b:Enum",
             "@Value": "Standard"
