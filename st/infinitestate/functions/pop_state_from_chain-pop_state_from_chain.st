@@ -9,17 +9,17 @@ VAR
 END_VAR
 
 (* --- Implementation --- *)
-(* Pre-decrement the depth of the chain. *)
-depth := chain.depth - 1;
+pop_state_from_chain := FALSE;
+depth                := chain.depth - 1; (* pre-decrement the depth of the chain *)
 
 (* Answer FALSE if the pre-decremented depth is out of bounds, TRUE
    otherwise. Zero out the popped state in the chain. Not strictly
    necessary, but helps prevent stale states. *)
-IF LOWER_BOUND(chain.states, 1) <= depth AND depth <= UPPER_BOUND(chain.states, 1) THEN
-	chain.depth          := depth;
-	state                := chain.states[depth];
-	chain.states[depth]  := 0;
-	pop_state_from_chain := TRUE;
-ELSE
-	pop_state_from_chain := FALSE;
+IF LOWER_BOUND(chain.states, 1) > depth OR depth > UPPER_BOUND(chain.states, 1) THEN
+	RETURN;
 END_IF
+
+chain.depth          := depth;
+state                := chain.states[depth];
+chain.states[depth]  := 0;
+pop_state_from_chain := TRUE;

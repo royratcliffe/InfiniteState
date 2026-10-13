@@ -8,10 +8,12 @@ VAR_IN_OUT
 END_VAR
 
 (* --- Implementation --- *)
-IF LOWER_BOUND(chain.states, 1) <= chain.depth AND chain.depth <= UPPER_BOUND(chain.states, 1) THEN
-	chain.states[chain.depth] := state;
-	chain.depth               := chain.depth + 1;
-	push_state_to_chain       := TRUE;
-ELSE
-	push_state_to_chain := FALSE;
+push_state_to_chain := FALSE;
+
+IF LOWER_BOUND(chain.states, 1) > chain.depth OR chain.depth > UPPER_BOUND(chain.states, 1) THEN
+	RETURN;
 END_IF
+
+chain.states[chain.depth] := state;
+chain.depth               := chain.depth + 1;
+push_state_to_chain       := TRUE;

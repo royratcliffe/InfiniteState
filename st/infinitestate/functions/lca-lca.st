@@ -1,11 +1,11 @@
 (* --- Interface --- *)
 FUNCTION lca : DEPTH
 VAR_IN_OUT CONSTANT
-	outgoing: Chain;
-	incoming: Chain;
+	outgoing : Chain;
+	incoming : Chain;
 END_VAR
 VAR
-	depth: DEPTH := 0;
+	depth : DEPTH := LOWER_DEPTH;
 END_VAR
 
 (* --- Implementation --- *)

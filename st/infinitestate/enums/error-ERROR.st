@@ -5,6 +5,6 @@
 {attribute 'hide'}
 TYPE ERROR : (
 		NO_ERROR,
-		TIME_OUT
+		DEPTH_ERR
 	);
 END_TYPE

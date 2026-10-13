@@ -10,8 +10,8 @@ VAR_IN_OUT
 	chain : Chain;
 END_VAR
 VAR
-	reverse_chain : Chain;
-	super_state   : STATE;
+	super_chain : Chain;
+	super_state : STATE;
 END_VAR
 
 (* --- Implementation --- *)
@@ -19,7 +19,7 @@ chain_of_state := FALSE;
 super_state    := state;
 
 WHILE super_state <> 0 DO
-	IF NOT push_state_to_chain(super_state, reverse_chain) THEN
+	IF NOT push_state_to_chain(super_state, super_chain) THEN
 		RETURN;
 	END_IF
 
@@ -38,7 +38,7 @@ END_WHILE;
    This will never fail in practice. The reverse chain fits, so the
    transfer back to the original chain will always succeed. The push
    check exists for completeness. *)
-WHILE pop_state_from_chain(super_state, reverse_chain) DO
+WHILE pop_state_from_chain(super_state, super_chain) DO
 	IF NOT push_state_to_chain(super_state, chain) THEN
 		RETURN;
 	END_IF

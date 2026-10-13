@@ -11,7 +11,7 @@ VAR
 END_VAR
 
 (* --- Implementation --- *)
-find_depth_in_chain := NOT_DEPTH;
+find_depth_in_chain := ERROR_DEPTH;
 
 FOR depth := LOWER_BOUND(chain.states, 1) TO UPPER_BOUND(chain.states, 1) DO
 	(* The FOR loop iterates through the states in the chain,
