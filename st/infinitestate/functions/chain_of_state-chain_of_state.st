@@ -1,7 +1,9 @@
 (* --- Interface --- *)
 FUNCTION chain_of_state : BOOL
 VAR_INPUT
-	state     : STATE;
+	state : STATE;
+END_VAR
+VAR_IN_OUT CONSTANT
 	hierarchy : ARRAY[*] OF Tuple;
 END_VAR
 VAR_IN_OUT

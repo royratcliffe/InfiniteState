@@ -1,0 +1,71 @@
+{
+  "payload": {
+    "meta": {
+      "Graph": {
+        "@Type": "81297157",
+        "@Value": {
+          "Guid": "(Guid)1fa6baac-d579-4ce9-bce2-ce4412c84898",
+          "ParentGuid": "(Guid)d2de26fb-a996-4698-b666-69bb6ad1905d",
+          "Name": "(string)GoTo",
+          "Properties": {
+            "@Type": "2c41fa04:IDictionary",
+            "@Value": {}
+          },
+          "TypeGuid": "(Guid)f8a58466-d7f6-439f-bbb8-d4600e41d099",
+          "EmbeddedTypeGuids": {
+            "@Type": "[Guid]",
+            "@Value": [
+              "(Guid)a9ed5b7e-75c5-4651-af16-d2c27e98cb94",
+              "(Guid)3b83b776-fb25-43b8-99f2-3c507c9143fc"
+            ]
+          }
+        }
+      },
+      "TypeInfos": {
+        "2c41fa04": "{2c41fa04-1834-41c1-816e-303c7aa2c05b}",
+        "81297157": "{81297157-7ec9-45ce-845e-84cab2b88ade}",
+        "Guid": "System.Guid",
+        "string": "System.String"
+      }
+    },
+    "object": {
+      "Graph": {
+        "@Type": "f8a58466",
+        "@Value": {
+          "Implementation": {
+            "@Type": "3b83b776",
+            "@Value": {
+              "TextDocument": {
+                "@Type": "f3878285",
+                "@Value": {
+                  "TextBlobForSerialisation": "(string)GoTo := FALSE;\n\nIF NOT chain_of_state(state, hierarchy, chain) THEN\n\tRETURN;\nEND_IF\n\n{analysis -62}\nWHILE depth < chain.depth DO\n\tIF depth = THIS^.chain.depth THEN\n\t\tEXIT;\n\tEND_IF\n\n\tIF THIS^.chain.states[depth] <> chain.states[depth] THEN\n\t\tEXIT;\n\tEND_IF\n\n\tdepth := depth + 1;\nEND_WHILE\n\n{analysis -41}\nWHILE THIS^.chain.depth > depth DO\n\tIF NOT pop_state_from_chain(sub_state, THIS^.chain) THEN\n\t\tRETURN;\n\tEND_IF\nEND_WHILE\n\nWHILE THIS^.chain.depth < chain.depth DO\n\tIF NOT push_state_to_chain(chain.states[depth], THIS^.chain) THEN\n\t\tRETURN;\n\tEND_IF\nEND_WHILE\n\nGoTo := TRUE;\n",
+                  "LineInfoPersistence": "(string)1fa6baac-d579-4ce9-bce2-ce4412c84898_Impl_LineIds"
+                }
+              }
+            }
+          },
+          "Interface": {
+            "@Type": "a9ed5b7e",
+            "@Value": {
+              "TextDocument": {
+                "@Type": "f3878285",
+                "@Value": {
+                  "TextBlobForSerialisation": "(string)METHOD GoTo : BOOL\nVAR_INPUT\n\tstate: STATE;\nEND_VAR\nVAR_IN_OUT CONSTANT\n\thierarchy: ARRAY[*] OF Tuple;\nEND_VAR\nVAR\n\tchain: Chain;\n\tdepth: DEPTH := 0;\n\tsub_state: STATE;\nEND_VAR\n",
+                  "LineInfoPersistence": "(string)1fa6baac-d579-4ce9-bce2-ce4412c84898_Decl_LineIds"
+                }
+              }
+            }
+          }
+        }
+      },
+      "TypeInfos": {
+        "3b83b776": "{3b83b776-fb25-43b8-99f2-3c507c9143fc}",
+        "a9ed5b7e": "{a9ed5b7e-75c5-4651-af16-d2c27e98cb94}",
+        "f3878285": "{f3878285-8e4f-490b-bb1b-9acbb7eb04db}",
+        "f8a58466": "{f8a58466-d7f6-439f-bbb8-d4600e41d099}",
+        "string": "System.String"
+      }
+    }
+  },
+  "FormatVersion": "1.0"
+}
