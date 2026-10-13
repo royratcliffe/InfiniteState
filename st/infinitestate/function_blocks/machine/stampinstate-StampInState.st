@@ -1,5 +1,5 @@
 (* --- Interface --- *)
-METHOD StampInState : SysTimeRtc.SYSTIME
+METHOD StampInState : STAMP
 VAR_INPUT
 	state : STATE;
 END_VAR

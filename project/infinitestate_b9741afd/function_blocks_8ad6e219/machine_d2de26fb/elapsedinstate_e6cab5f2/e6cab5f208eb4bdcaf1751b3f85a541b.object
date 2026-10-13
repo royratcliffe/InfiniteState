@@ -50,7 +50,7 @@
               "TextDocument": {
                 "@Type": "f3878285",
                 "@Value": {
-                  "TextBlobForSerialisation": "(string)METHOD ElapsedInState : SysTimeRtc.SYSTIME\nVAR_INPUT\n\tstate : STATE;\nEND_VAR\nVAR\n\tnow   : STAMP;\n\tstamp : STAMP;\nEND_VAR\n",
+                  "TextBlobForSerialisation": "(string)METHOD ElapsedInState : STAMP\nVAR_INPUT\n\tstate : STATE;\nEND_VAR\nVAR\n\tnow   : STAMP;\n\tstamp : STAMP;\nEND_VAR\n",
                   "LineInfoPersistence": "(string)e6cab5f2-08eb-4bdc-af17-51b3f85a541b_Decl_LineIds"
                 }
               }

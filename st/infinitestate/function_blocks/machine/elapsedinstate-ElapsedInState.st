@@ -1,5 +1,5 @@
 (* --- Interface --- *)
-METHOD ElapsedInState : SysTimeRtc.SYSTIME
+METHOD ElapsedInState : STAMP
 VAR_INPUT
 	state : STATE;
 END_VAR
