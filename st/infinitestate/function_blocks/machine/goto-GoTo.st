@@ -36,7 +36,7 @@ END_WHILE
 {analysis -41}
 WHILE THIS^.chain.depth > depth DO
 	{analysis -9}
-	ExitState(depth - 1);
+	ExitState(THIS^.chain.depth - 1);
 
 	{analysis +9}
 	IF NOT pop_state_from_chain(sub_state, THIS^.chain) THEN
