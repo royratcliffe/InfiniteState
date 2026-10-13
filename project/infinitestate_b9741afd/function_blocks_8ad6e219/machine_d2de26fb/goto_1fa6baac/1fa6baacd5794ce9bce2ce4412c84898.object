@@ -38,7 +38,7 @@
               "TextDocument": {
                 "@Type": "f3878285",
                 "@Value": {
-                  "TextBlobForSerialisation": "(string)GoTo := FALSE;\n\nIF NOT chain_of_state(state, hierarchy, chain) THEN\n\tRETURN;\nEND_IF\n\n{analysis -62}\nWHILE depth < chain.depth DO\n\tIF depth = THIS^.chain.depth THEN\n\t\tEXIT;\n\tEND_IF\n\n\tIF THIS^.chain.states[depth] <> chain.states[depth] THEN\n\t\tEXIT;\n\tEND_IF\n\n\tdepth := depth + 1;\nEND_WHILE\n{analysis +62}\n\n{analysis -41}\nWHILE THIS^.chain.depth > depth DO\n\tIF NOT pop_state_from_chain(sub_state, THIS^.chain) THEN\n\t\tRETURN;\n\tEND_IF\nEND_WHILE\n\nWHILE THIS^.chain.depth < chain.depth DO\n\tIF NOT push_state_to_chain(chain.states[depth], THIS^.chain) THEN\n\t\tRETURN;\n\tEND_IF\nEND_WHILE\n{analysis +41}\n\nGoTo := TRUE;\n",
+                  "TextBlobForSerialisation": "(string)GoTo := FALSE;\n\nIF NOT chain_of_state(state, hierarchy, chain) THEN\n\tRETURN;\nEND_IF\n\n{analysis -62}\nWHILE depth < chain.depth DO\n\tIF depth = THIS^.chain.depth THEN\n\t\tEXIT;\n\tEND_IF\n\n\tIF THIS^.chain.states[depth] <> chain.states[depth] THEN\n\t\tEXIT;\n\tEND_IF\n\n\tdepth := depth + 1;\nEND_WHILE\n\n{analysis +62}\n{analysis -41}\nWHILE THIS^.chain.depth > depth DO\n\t{analysis -9}\n\tExitState(depth - 1);\n\n\t{analysis +9}\n\tIF NOT pop_state_from_chain(sub_state, THIS^.chain) THEN\n\t\tRETURN;\n\tEND_IF\nEND_WHILE\n\nWHILE THIS^.chain.depth < chain.depth DO\n\tIF NOT push_state_to_chain(chain.states[depth], THIS^.chain) THEN\n\t\tRETURN;\n\tEND_IF\n\n\t{analysis -9}\n\tEnterState(THIS^.chain.depth - 1);\n\t{analysis +9}\nEND_WHILE\n\n{analysis +41}\nGoTo := TRUE;\n",
                   "LineInfoPersistence": "(string)1fa6baac-d579-4ce9-bce2-ce4412c84898_Impl_LineIds"
                 }
               }
@@ -50,7 +50,7 @@
               "TextDocument": {
                 "@Type": "f3878285",
                 "@Value": {
-                  "TextBlobForSerialisation": "(string)METHOD GoTo : BOOL\nVAR_INPUT\n\tstate: STATE;\nEND_VAR\nVAR_IN_OUT CONSTANT\n\thierarchy: ARRAY[*] OF Tuple;\nEND_VAR\nVAR\n\tchain: Chain;\n\tdepth: DEPTH := 0;\n\tsub_state: STATE;\nEND_VAR\n",
+                  "TextBlobForSerialisation": "(string)METHOD GoTo : BOOL\nVAR_INPUT\n\tstate : STATE;\nEND_VAR\nVAR_IN_OUT CONSTANT\n\thierarchy : ARRAY[*] OF Tuple;\nEND_VAR\nVAR\n\tchain     : Chain;\n\tdepth     : DEPTH := 0;\n\tsub_state : STATE;\nEND_VAR\n",
                   "LineInfoPersistence": "(string)1fa6baac-d579-4ce9-bce2-ce4412c84898_Decl_LineIds"
                 }
               }
