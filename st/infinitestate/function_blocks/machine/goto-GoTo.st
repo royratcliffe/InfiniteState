@@ -23,10 +23,10 @@ depth := lca(THIS^.chain, chain);
 
 {analysis -41}
 WHILE THIS^.chain.depth > depth DO
-	{analysis -9}
-	ExitState(THIS^.chain.depth - 1);
+	IF NOT ExitState(THIS^.chain.depth - 1) THEN
+		RETURN;
+	END_IF
 
-	{analysis +9}
 	IF NOT pop_state_from_chain(sub_state, THIS^.chain) THEN
 		RETURN;
 	END_IF
@@ -37,9 +37,9 @@ WHILE THIS^.chain.depth < chain.depth DO
 		RETURN;
 	END_IF
 
-	{analysis -9}
-	EnterState(THIS^.chain.depth - 1);
-	{analysis +9}
+	IF NOT EnterState(THIS^.chain.depth - 1) THEN
+		RETURN;
+	END_IF
 END_WHILE
 
 {analysis +41}
