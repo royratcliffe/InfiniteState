@@ -1,0 +1,71 @@
+{
+  "payload": {
+    "meta": {
+      "Graph": {
+        "@Type": "81297157",
+        "@Value": {
+          "Guid": "(Guid)e6cab5f2-08eb-4bdc-af17-51b3f85a541b",
+          "ParentGuid": "(Guid)d2de26fb-a996-4698-b666-69bb6ad1905d",
+          "Name": "(string)ElapsedInState",
+          "Properties": {
+            "@Type": "2c41fa04:IDictionary",
+            "@Value": {}
+          },
+          "TypeGuid": "(Guid)f8a58466-d7f6-439f-bbb8-d4600e41d099",
+          "EmbeddedTypeGuids": {
+            "@Type": "[Guid]",
+            "@Value": [
+              "(Guid)a9ed5b7e-75c5-4651-af16-d2c27e98cb94",
+              "(Guid)3b83b776-fb25-43b8-99f2-3c507c9143fc"
+            ]
+          }
+        }
+      },
+      "TypeInfos": {
+        "2c41fa04": "{2c41fa04-1834-41c1-816e-303c7aa2c05b}",
+        "81297157": "{81297157-7ec9-45ce-845e-84cab2b88ade}",
+        "Guid": "System.Guid",
+        "string": "System.String"
+      }
+    },
+    "object": {
+      "Graph": {
+        "@Type": "f8a58466",
+        "@Value": {
+          "Implementation": {
+            "@Type": "3b83b776",
+            "@Value": {
+              "TextDocument": {
+                "@Type": "f3878285",
+                "@Value": {
+                  "TextBlobForSerialisation": "(string)ElapsedInState := EMPTY_STAMP;\n\nIF SysTimeRtcHighResGet(now) <> CmpErrors.Errors.ERR_OK THEN\n\tRETURN;\nEND_IF\n\nstamp := StampInState(state);\n\nIF stamp = EMPTY_STAMP THEN\n\tRETURN;\nEND_IF\n\nElapsedInState := now - stamp;\n",
+                  "LineInfoPersistence": "(string)e6cab5f2-08eb-4bdc-af17-51b3f85a541b_Impl_LineIds"
+                }
+              }
+            }
+          },
+          "Interface": {
+            "@Type": "a9ed5b7e",
+            "@Value": {
+              "TextDocument": {
+                "@Type": "f3878285",
+                "@Value": {
+                  "TextBlobForSerialisation": "(string)METHOD ElapsedInState : STAMP\nVAR_INPUT\n\tstate : STATE;\nEND_VAR\nVAR\n\tnow   : STAMP;\n\tstamp : STAMP;\nEND_VAR\n",
+                  "LineInfoPersistence": "(string)e6cab5f2-08eb-4bdc-af17-51b3f85a541b_Decl_LineIds"
+                }
+              }
+            }
+          }
+        }
+      },
+      "TypeInfos": {
+        "3b83b776": "{3b83b776-fb25-43b8-99f2-3c507c9143fc}",
+        "a9ed5b7e": "{a9ed5b7e-75c5-4651-af16-d2c27e98cb94}",
+        "f3878285": "{f3878285-8e4f-490b-bb1b-9acbb7eb04db}",
+        "f8a58466": "{f8a58466-d7f6-439f-bbb8-d4600e41d099}",
+        "string": "System.String"
+      }
+    }
+  },
+  "FormatVersion": "1.0"
+}
