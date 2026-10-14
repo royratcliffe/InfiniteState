@@ -62,7 +62,7 @@
               "TextDocument": {
                 "@Type": "f3878285",
                 "@Value": {
-                  "TextBlobForSerialisation": "(string)super_state_of := EMPTY_STATE;\n\nFOR depth := LOWER_BOUND(hierarchy, 1) TO UPPER_BOUND(hierarchy, 1) DO\n\tIF hierarchy[depth].subState = state THEN\n\t\tsuper_state_of := hierarchy[depth].superState;\n\t\tEXIT;\n\tEND_IF\nEND_FOR\n",
+                  "TextBlobForSerialisation": "(string)super_state_of := EMPTY_STATE;\n\n(* Walk the hierarchy to find the super-state of the given sub-state.\n   Fail if not found by leaving the result as EMPTY_STATE. State's with\n   no super-state amount to top-level states and implicitly have\n   EMPTY_STATE as their super-state. *)\nFOR depth := LOWER_BOUND(hierarchy, 1) TO UPPER_BOUND(hierarchy, 1) DO\n\tIF hierarchy[depth].subState = state THEN\n\t\tsuper_state_of := hierarchy[depth].superState;\n\t\tEXIT;\n\tEND_IF\nEND_FOR\n",
                   "LineInfoPersistence": "(string)8ca8fc75-a6ed-4011-9060-90ddd6b26a12_Impl_LineIds"
                 }
               }

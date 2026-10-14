@@ -74,7 +74,7 @@
               "TextDocument": {
                 "@Type": "f3878285",
                 "@Value": {
-                  "TextBlobForSerialisation": "(string)FUNCTION chain_of_state : BOOL\nVAR_INPUT\n\tstate : STATE;\nEND_VAR\nVAR_IN_OUT CONSTANT\n\thierarchy : ARRAY[*] OF Tuple;\nEND_VAR\nVAR_IN_OUT\n\tchain : Chain;\nEND_VAR\nVAR\n\tsuper_chain : Chain;\n\tsuper_state : STATE;\nEND_VAR\n",
+                  "TextBlobForSerialisation": "(string)FUNCTION chain_of_state : BOOL\nVAR_INPUT\n\t(* Jump state for which to build the chain of states. *)\n\tstate : STATE;\nEND_VAR\nVAR_IN_OUT CONSTANT\n\t(* Hierarchy of states used to build the chain. *)\n\thierarchy : ARRAY[*] OF Tuple;\nEND_VAR\nVAR_IN_OUT\n\t(* Chain of states being built for the jump state. *)\n\tchain : Chain;\nEND_VAR\nVAR\n\t(* Temporary chain used to build the reverse chain of states leading to the jump state. *)\n\tsuper_chain : Chain;\n\t(* Temporary variable to hold the current state being processed in the reverse chain. *)\n\tsuper_state : STATE;\nEND_VAR\n",
                   "LineInfoPersistence": "(string)138c894b-4a03-4afd-bbc2-6da659dfdbcd_Decl_LineIds"
                 }
               }

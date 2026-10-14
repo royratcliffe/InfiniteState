@@ -15,10 +15,12 @@ END_VAR
 (* --- Implementation --- *)
 GoTo := FALSE;
 
+(* Build the chain of states leading to the target jump state based on the given hierarchy. *)
 IF NOT chain_of_state(state, hierarchy, chain) THEN
 	RETURN;
 END_IF
 
+(* Determine the depth of the least-common ancestor between the current chain and the jump chain. *)
 depth := lca(THIS^.chain, chain);
 
 {analysis -41}

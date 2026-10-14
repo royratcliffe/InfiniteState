@@ -1,16 +1,21 @@
 (* --- Interface --- *)
 FUNCTION chain_of_state : BOOL
 VAR_INPUT
+	(* Jump state for which to build the chain of states. *)
 	state : STATE;
 END_VAR
 VAR_IN_OUT CONSTANT
+	(* Hierarchy of states used to build the chain. *)
 	hierarchy : ARRAY[*] OF Tuple;
 END_VAR
 VAR_IN_OUT
+	(* Chain of states being built for the jump state. *)
 	chain : Chain;
 END_VAR
 VAR
+	(* Temporary chain used to build the reverse chain of states leading to the jump state. *)
 	super_chain : Chain;
+	(* Temporary variable to hold the current state being processed in the reverse chain. *)
 	super_state : STATE;
 END_VAR
 
