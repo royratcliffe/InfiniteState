@@ -35,9 +35,9 @@ END_WHILE
    chain before transferring states from the reverse chain. As a
    by-product, the original chain will be empty and cleared before
    states are transferred from the reverse chain. *)
-WHILE pop_state_from_chain(super_state, chain) DO
-	;
-END_WHILE;
+IF NOT empty_chain(chain) THEN
+	RETURN;
+END_IF
 
 (* Transfer states from the reverse chain back to the original chain.
    This will never fail in practice. The reverse chain fits, so the
