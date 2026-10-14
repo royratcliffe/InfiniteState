@@ -1,4 +1,38 @@
 (* --- Interface --- *)
+(*
+===============================================================================
+Function : super_state_of
+
+Purpose:
+    Returns the super-state associated with a state in the hierarchy.
+
+Application:
+    Look up the parent state while traversing a state hierarchy.
+
+Inputs:
+    state       - State whose super-state is to be found.
+    hierarchy   - Array of super-state/sub-state tuples to search.
+
+Return Value:
+    STATE       - The super-state from the first matching tuple, or
+                  EMPTY_STATE when no tuple matches.
+
+Assumptions:
+    - Each tuple associates a sub-state with its super-state.
+    - A sub-state occurs at most once in the hierarchy.
+
+Limitations:
+    - EMPTY_STATE represents both a top-level state and a state not found.
+    - The lookup is linear in the number of hierarchy tuples.
+
+Example:
+
+    super_state := super_state_of(
+        state := sub_state,
+        hierarchy := hierarchy
+    );
+===============================================================================
+*)
 FUNCTION super_state_of : STATE
 VAR_INPUT
 	state : STATE; (* Sub-state for which the super-state is to be looked up *)
