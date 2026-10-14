@@ -62,7 +62,7 @@
               "TextDocument": {
                 "@Type": "f3878285",
                 "@Value": {
-                  "TextBlobForSerialisation": "(string)",
+                  "TextBlobForSerialisation": "(string)Depth       := chain.depth;\nStates      := chain.states;\nEntryDepth  := entryChain.depth;\nEntryStates := entryChain.states;\nExitDepth   := exitChain.depth;\nExitStates  := exitChain.states;\n",
                   "LineInfoPersistence": "(string)d2de26fb-a996-4698-b666-69bb6ad1905d_Impl_LineIds"
                 }
               }
@@ -74,13 +74,13 @@
               "TextDocument": {
                 "@Type": "f3878285",
                 "@Value": {
-                  "TextBlobForSerialisation": "(string)FUNCTION_BLOCK Machine\nVAR_INPUT\nEND_VAR\nVAR\n\tchain  : Chain;\n\tstamps : ARRAY[LOWER_DEPTH..UPPER_DEPTH] OF STAMP;\nEND_VAR\n",
+                  "TextBlobForSerialisation": "(string)FUNCTION_BLOCK Machine\nVAR\n\tchain      : Chain;\n\tentryChain : Chain;\n\texitChain  : Chain;\n\tstamps     : ARRAY[LOWER_DEPTH..UPPER_DEPTH] OF STAMP;\nEND_VAR\nVAR_OUTPUT\n\tDepth       : DEPTH;\n\tStates      : ARRAY[LOWER_DEPTH..UPPER_DEPTH] OF STATE;\n\tEntryDepth  : DEPTH;\n\tEntryStates : ARRAY[LOWER_DEPTH..UPPER_DEPTH] OF STATE;\n\tExitDepth   : DEPTH;\n\tExitStates  : ARRAY[LOWER_DEPTH..UPPER_DEPTH] OF STATE;\nEND_VAR\n",
                   "LineInfoPersistence": "(string)d2de26fb-a996-4698-b666-69bb6ad1905d_Decl_LineIds"
                 }
               }
             }
           },
-          "UniqueIdGenerator": "(string)197",
+          "UniqueIdGenerator": "(string)314",
           "POULevel": {
             "@Type": "8e575c5b:Enum",
             "@Value": "Standard"

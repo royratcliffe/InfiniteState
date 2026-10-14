@@ -23,6 +23,10 @@ END_IF
 (* Determine the depth of the least-common ancestor between the current chain and the jump chain. *)
 depth := lca(THIS^.chain, chain);
 
+IF NOT empty_chain(exitChain) THEN
+	RETURN;
+END_IF
+
 {analysis -41}
 WHILE THIS^.chain.depth > depth DO
 	IF NOT ExitState(THIS^.chain.depth - 1) THEN
@@ -32,10 +36,24 @@ WHILE THIS^.chain.depth > depth DO
 	IF NOT pop_state_from_chain(sub_state, THIS^.chain) THEN
 		RETURN;
 	END_IF
+
+	IF NOT push_state_to_chain(sub_state, exitChain) THEN
+		RETURN;
+	END_IF
 END_WHILE
 
+IF NOT empty_chain(entryChain) THEN
+	RETURN;
+END_IF
+
 WHILE THIS^.chain.depth < chain.depth DO
-	IF NOT push_state_to_chain(state_at_depth(THIS^.chain.depth, chain), THIS^.chain) THEN
+	sub_state := state_at_depth(THIS^.chain.depth, chain);
+
+	IF NOT push_state_to_chain(sub_state, THIS^.chain) THEN
+		RETURN;
+	END_IF
+
+	IF NOT push_state_to_chain(sub_state, entryChain) THEN
 		RETURN;
 	END_IF
 
