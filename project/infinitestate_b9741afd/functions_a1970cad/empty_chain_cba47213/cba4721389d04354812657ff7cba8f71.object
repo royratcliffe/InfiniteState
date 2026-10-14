@@ -62,7 +62,7 @@
               "TextDocument": {
                 "@Type": "f3878285",
                 "@Value": {
-                  "TextBlobForSerialisation": "(string)WHILE pop_state_from_chain(super_state, chain) DO\n\t;\nEND_WHILE;\n\nempty_chain := TRUE;\n",
+                  "TextBlobForSerialisation": "(string)WHILE pop_state_from_chain(super_state, chain) DO\n\t;\nEND_WHILE;\n\n(* Always returns TRUE, indicating the chain has been emptied, even if\n   it was already empty. *)\nempty_chain := TRUE;\n",
                   "LineInfoPersistence": "(string)cba47213-89d0-4354-8126-57ff7cba8f71_Impl_LineIds"
                 }
               }
