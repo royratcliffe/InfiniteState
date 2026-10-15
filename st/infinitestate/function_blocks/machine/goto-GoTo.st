@@ -23,6 +23,8 @@ END_IF
 (* Determine the depth of the least-common ancestor between the current chain and the jump chain. *)
 depth := lca(THIS^.chain, chain);
 
+(* Empty the exit chain before proceeding. This always succeeds in
+   clearing any previously stored exit states. *)
 IF NOT empty_chain(exitChain) THEN
 	RETURN;
 END_IF
