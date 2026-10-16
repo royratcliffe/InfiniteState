@@ -1,3 +1,4 @@
+(* --- Interface --- *)
 (* =============================================================================
 Function Block : Machine
 
@@ -69,7 +70,6 @@ Example:
 Revision History:
     See source control history.
 ============================================================================= *)
-(* --- Interface --- *)
 FUNCTION_BLOCK Machine
 VAR
 	chain      : Chain;
