@@ -45,8 +45,11 @@ Alarms/Faults:
 Assumptions:
     - State identifiers are nonzero; EMPTY_STATE (0) denotes no state and ends
       the ancestry walk.
+    - Update GVL.now from the system high-resolution RTC before calling GoTo
+      or ElapsedInState; otherwise state timestamps and elapsed times use a
+      stale value.
     - The hierarchy contains the parent relationship needed to reach the
-      requested target, and the system high-resolution RTC is available.
+      requested target.
 
 Limitations:
     - The active path and transition lists have fixed bounds LOWER_DEPTH..UPPER_DEPTH
