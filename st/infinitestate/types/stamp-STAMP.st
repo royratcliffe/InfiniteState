@@ -1,3 +1,3 @@
 (* --- Interface --- *)
-TYPE STAMP : SysTimeRtc.SYSTIME;
+TYPE STAMP : ULINT;
 END_TYPE

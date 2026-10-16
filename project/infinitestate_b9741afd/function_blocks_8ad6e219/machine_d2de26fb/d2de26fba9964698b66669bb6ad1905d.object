@@ -62,7 +62,7 @@
               "TextDocument": {
                 "@Type": "f3878285",
                 "@Value": {
-                  "TextBlobForSerialisation": "(string)",
+                  "TextBlobForSerialisation": "(string)Depth       := chain.depth;\nStates      := chain.states;\nEntryDepth  := entryChain.depth;\nEntryStates := entryChain.states;\nExitDepth   := exitChain.depth;\nExitStates  := exitChain.states;\n",
                   "LineInfoPersistence": "(string)d2de26fb-a996-4698-b666-69bb6ad1905d_Impl_LineIds"
                 }
               }
@@ -74,13 +74,13 @@
               "TextDocument": {
                 "@Type": "f3878285",
                 "@Value": {
-                  "TextBlobForSerialisation": "(string)FUNCTION_BLOCK Machine\nVAR_INPUT\nEND_VAR\nVAR\n\tchain  : Chain;\n\tstamps : ARRAY[LOWER_DEPTH..UPPER_DEPTH] OF STAMP;\nEND_VAR\n",
+                  "TextBlobForSerialisation": "(string)(* =============================================================================\nFunction Block : Machine\n\nPurpose:\n    Tracks a hierarchical machine's active state path and records the time each\n    active state was entered.\n\nApplication:\n    Use one instance per machine. Supply the state hierarchy when requesting a\n    transition, then inspect the active, entered, and exited states and state\n    timestamps through the instance.\n\nOperation:\n    1. Call GoTo with a target state and its hierarchy of (superState, subState)\n       pairs.\n    2. GoTo finds the common ancestor, removes states no longer active, and\n       adds the target's remaining ancestors and state to the active path.\n    3. Entered states receive a high-resolution RTC timestamp. The EntryStates\n       and ExitStates outputs report the states added to and removed from the\n       path by the most recent transition.\n\nInputs:\n    GoTo.state      - Target state to activate.\n    GoTo.hierarchy  - Array of Tuple values describing super-state/sub-state\n                      relationships; EMPTY_STATE terminates the target path.\n\nOutputs:\n    Depth       - Number of active states in the path.\n    States      - Active state path, ordered from outermost to innermost.\n    EntryDepth  - Number of states entered by the most recent GoTo.\n    EntryStates - States entered, ordered from outermost to innermost.\n    ExitDepth   - Number of states exited by the most recent GoTo.\n    ExitStates  - States exited, ordered from innermost to outermost.\n\nInOut:\n    GoTo.hierarchy  - Caller-provided hierarchy array, passed as constant\n                      in-out data to the GoTo method.\n\nAlarms/Faults:\n    No alarm outputs. GoTo returns FALSE when it cannot build or complete a\n    transition. Timestamp methods return EMPTY_STAMP if a timestamp is\n    unavailable or the RTC call fails.\n\nAssumptions:\n    - State identifiers are nonzero; EMPTY_STATE (0) denotes no state and ends\n      the ancestry walk.\n    - Update GVL.now from the system high-resolution RTC before calling GoTo\n      or ElapsedInState; otherwise state timestamps and elapsed times use a\n      stale value.\n    - The hierarchy contains the parent relationship needed to reach the\n      requested target.\n\nLimitations:\n    - The active path and transition lists have fixed bounds LOWER_DEPTH..UPPER_DEPTH\n      (currently 0..7), for a maximum of eight states.\n    - GoTo processes a transition incrementally; if it returns FALSE after\n      processing has begun, inspect the outputs before issuing another\n      transition.\n\nDependencies:\n    - Chain, Tuple, STATE, DEPTH, and STAMP declarations and the state-chain\n      helper functions.\n    - SysTimeRtc and CmpErrors libraries for high-resolution timestamps.\n\nExample:\n\n    xTransitioned := fbMachine.GoTo(\n        state := targetState,\n        hierarchy := stateHierarchy\n    );\n\nRevision History:\n    See source control history.\n============================================================================= *)\nFUNCTION_BLOCK Machine\nVAR\n\tchain      : Chain;\n\tentryChain : Chain;\n\texitChain  : Chain;\n\tstamps     : ARRAY[LOWER_DEPTH..UPPER_DEPTH] OF STAMP;\nEND_VAR\nVAR_OUTPUT\n\tDepth       : DEPTH;\n\tStates      : ARRAY[LOWER_DEPTH..UPPER_DEPTH] OF STATE;\n\tEntryDepth  : DEPTH;\n\tEntryStates : ARRAY[LOWER_DEPTH..UPPER_DEPTH] OF STATE;\n\tExitDepth   : DEPTH;\n\tExitStates  : ARRAY[LOWER_DEPTH..UPPER_DEPTH] OF STATE;\nEND_VAR\n",
                   "LineInfoPersistence": "(string)d2de26fb-a996-4698-b666-69bb6ad1905d_Decl_LineIds"
                 }
               }
             }
           },
-          "UniqueIdGenerator": "(string)197",
+          "UniqueIdGenerator": "(string)427",
           "POULevel": {
             "@Type": "8e575c5b:Enum",
             "@Value": "Standard"

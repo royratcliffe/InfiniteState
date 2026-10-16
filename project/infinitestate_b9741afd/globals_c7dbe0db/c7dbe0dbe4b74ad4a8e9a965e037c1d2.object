@@ -6,7 +6,7 @@
         "@Value": {
           "Guid": "(Guid)c7dbe0db-e4b7-4ad4-a8e9-a965e037c1d2",
           "ParentGuid": "(Guid)00000000-0000-0000-0000-000000000000",
-          "Name": "(string)GlobalConstants",
+          "Name": "(string)Globals",
           "Properties": {
             "@Type": "2c41fa04:IDictionary",
             "@Value": [

@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <project xmlns="http://www.plcopen.org/xml/tc6_0200">
-  <fileHeader companyName="" productName="CODESYS" productVersion="CODESYS V3.5 SP22 Patch 4" creationDateTime="2026-10-13T13:15:41.165553" />
-  <contentHeader name="Infinite Topology State Machines" version="0.2.5.3" modificationDateTime="2026-10-13T13:06:18.6358383" organization="Roy Ratcliffe" author="Roy Ratcliffe">
+  <fileHeader companyName="" productName="CODESYS" productVersion="CODESYS V3.5 SP22 Patch 4" creationDateTime="2026-10-16T03:35:03.7627615" />
+  <contentHeader name="Infinite Topology State Machines" version="0.1.3.12" modificationDateTime="2026-10-16T03:33:48.6344994" organization="Roy Ratcliffe" author="Roy Ratcliffe">
     <Comment>Lightweight but flexible and robust framework for managing complex state interactions, enabling developers to create more adaptable and maintainable stateful systems</Comment>
     <coordinateInfo>
       <fbd>
@@ -28,7 +28,7 @@
           <property name="Project" type="string">InfiniteState</property>
           <property name="Released" type="boolean">false</property>
           <property name="Title" type="string">Infinite Topology State Machines</property>
-          <property name="Version" type="version">0.2.5.3</property>
+          <property name="Version" type="version">0.1.3.12</property>
           <property name="library-category-list" type="library-category-list" />
         </ProjectInformation>
       </data>
@@ -130,7 +130,7 @@
       </dataType>
       <dataType name="STAMP">
         <baseType>
-          <derived name="SysTimeRtc.SYSTIME" />
+          <ULINT />
         </baseType>
         <addData>
           <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
@@ -158,6 +158,16 @@
                 <derived name="Chain" />
               </type>
             </variable>
+            <variable name="entryChain">
+              <type>
+                <derived name="Chain" />
+              </type>
+            </variable>
+            <variable name="exitChain">
+              <type>
+                <derived name="Chain" />
+              </type>
+            </variable>
             <variable name="stamps">
               <type>
                 <array>
@@ -169,10 +179,139 @@
               </type>
             </variable>
           </localVars>
+          <outputVars>
+            <variable name="Depth">
+              <type>
+                <derived name="DEPTH" />
+              </type>
+            </variable>
+            <variable name="States">
+              <type>
+                <array>
+                  <dimension lower="LOWER_DEPTH" upper="UPPER_DEPTH" />
+                  <baseType>
+                    <derived name="STATE" />
+                  </baseType>
+                </array>
+              </type>
+            </variable>
+            <variable name="EntryDepth">
+              <type>
+                <derived name="DEPTH" />
+              </type>
+            </variable>
+            <variable name="EntryStates">
+              <type>
+                <array>
+                  <dimension lower="LOWER_DEPTH" upper="UPPER_DEPTH" />
+                  <baseType>
+                    <derived name="STATE" />
+                  </baseType>
+                </array>
+              </type>
+            </variable>
+            <variable name="ExitDepth">
+              <type>
+                <derived name="DEPTH" />
+              </type>
+            </variable>
+            <variable name="ExitStates">
+              <type>
+                <array>
+                  <dimension lower="LOWER_DEPTH" upper="UPPER_DEPTH" />
+                  <baseType>
+                    <derived name="STATE" />
+                  </baseType>
+                </array>
+              </type>
+            </variable>
+          </outputVars>
+          <documentation>
+            <xhtml xmlns="http://www.w3.org/1999/xhtml"> =============================================================================
+Function Block : Machine
+
+Purpose:
+    Tracks a hierarchical machine's active state path and records the time each
+    active state was entered.
+
+Application:
+    Use one instance per machine. Supply the state hierarchy when requesting a
+    transition, then inspect the active, entered, and exited states and state
+    timestamps through the instance.
+
+Operation:
+    1. Call GoTo with a target state and its hierarchy of (superState, subState)
+       pairs.
+    2. GoTo finds the common ancestor, removes states no longer active, and
+       adds the target's remaining ancestors and state to the active path.
+    3. Entered states receive a high-resolution RTC timestamp. The EntryStates
+       and ExitStates outputs report the states added to and removed from the
+       path by the most recent transition.
+
+Inputs:
+    GoTo.state      - Target state to activate.
+    GoTo.hierarchy  - Array of Tuple values describing super-state/sub-state
+                      relationships; EMPTY_STATE terminates the target path.
+
+Outputs:
+    Depth       - Number of active states in the path.
+    States      - Active state path, ordered from outermost to innermost.
+    EntryDepth  - Number of states entered by the most recent GoTo.
+    EntryStates - States entered, ordered from outermost to innermost.
+    ExitDepth   - Number of states exited by the most recent GoTo.
+    ExitStates  - States exited, ordered from innermost to outermost.
+
+InOut:
+    GoTo.hierarchy  - Caller-provided hierarchy array, passed as constant
+                      in-out data to the GoTo method.
+
+Alarms/Faults:
+    No alarm outputs. GoTo returns FALSE when it cannot build or complete a
+    transition. Timestamp methods return EMPTY_STAMP if a timestamp is
+    unavailable or the RTC call fails.
+
+Assumptions:
+    - State identifiers are nonzero; EMPTY_STATE (0) denotes no state and ends
+      the ancestry walk.
+    - Update GVL.now from the system high-resolution RTC before calling GoTo
+      or ElapsedInState; otherwise state timestamps and elapsed times use a
+      stale value.
+    - The hierarchy contains the parent relationship needed to reach the
+      requested target.
+
+Limitations:
+    - The active path and transition lists have fixed bounds LOWER_DEPTH..UPPER_DEPTH
+      (currently 0..7), for a maximum of eight states.
+    - GoTo processes a transition incrementally; if it returns FALSE after
+      processing has begun, inspect the outputs before issuing another
+      transition.
+
+Dependencies:
+    - Chain, Tuple, STATE, DEPTH, and STAMP declarations and the state-chain
+      helper functions.
+    - SysTimeRtc and CmpErrors libraries for high-resolution timestamps.
+
+Example:
+
+    xTransitioned := fbMachine.GoTo(
+        state := targetState,
+        hierarchy := stateHierarchy
+    );
+
+Revision History:
+    See source control history.
+============================================================================= </xhtml>
+          </documentation>
         </interface>
         <body>
           <ST>
-            <xhtml xmlns="http://www.w3.org/1999/xhtml" />
+            <xhtml xmlns="http://www.w3.org/1999/xhtml">Depth       := chain.depth;
+States      := chain.states;
+EntryDepth  := entryChain.depth;
+EntryStates := entryChain.states;
+ExitDepth   := exitChain.depth;
+ExitStates  := exitChain.states;
+</xhtml>
           </ST>
         </body>
         <addData>
@@ -213,7 +352,7 @@ AtDepth := chain.states[depth];
             <Method name="ElapsedInState" ObjectId="e6cab5f2-08eb-4bdc-af17-51b3f85a541b">
               <interface>
                 <returnType>
-                  <derived name="SysTimeRtc.SYSTIME" />
+                  <derived name="STAMP" />
                 </returnType>
                 <inputVars>
                   <variable name="state">
@@ -223,11 +362,6 @@ AtDepth := chain.states[depth];
                   </variable>
                 </inputVars>
                 <localVars>
-                  <variable name="now">
-                    <type>
-                      <derived name="STAMP" />
-                    </type>
-                  </variable>
                   <variable name="stamp">
                     <type>
                       <derived name="STAMP" />
@@ -238,12 +372,7 @@ AtDepth := chain.states[depth];
               <body>
                 <ST>
                   <xhtml xmlns="http://www.w3.org/1999/xhtml">ElapsedInState := EMPTY_STAMP;
-
-IF SysTimeRtcHighResGet(now) &lt;&gt; CmpErrors.Errors.ERR_OK THEN
-	RETURN;
-END_IF
-
-stamp := StampInState(state);
+stamp          := StampInState(state);
 
 IF stamp = EMPTY_STAMP THEN
 	RETURN;
@@ -283,11 +412,8 @@ IF LOWER_BOUND(stamps, 1) &gt; depth OR depth &gt; UPPER_BOUND(stamps, 1) THEN
 	RETURN;
 END_IF
 
-IF SysTimeRtcHighResGet(stamps[depth]) &lt;&gt; CmpErrors.Errors.ERR_OK THEN
-	RETURN;
-END_IF
-
-EnterState := TRUE;
+stamps[depth] := now;
+EnterState    := TRUE;
 </xhtml>
                 </ST>
               </body>
@@ -384,11 +510,19 @@ ExitState     := TRUE;
                 <ST>
                   <xhtml xmlns="http://www.w3.org/1999/xhtml">GoTo := FALSE;
 
+(* Build the chain of states leading to the target jump state based on the given hierarchy. *)
 IF NOT chain_of_state(state, hierarchy, chain) THEN
 	RETURN;
 END_IF
 
+(* Determine the depth of the least-common ancestor between the current chain and the jump chain. *)
 depth := lca(THIS^.chain, chain);
+
+(* Empty the exit chain before proceeding. This always succeeds in
+   clearing any previously stored exit states. *)
+IF NOT empty_chain(exitChain) THEN
+	RETURN;
+END_IF
 
 {analysis -41}
 WHILE THIS^.chain.depth &gt; depth DO
@@ -399,10 +533,24 @@ WHILE THIS^.chain.depth &gt; depth DO
 	IF NOT pop_state_from_chain(sub_state, THIS^.chain) THEN
 		RETURN;
 	END_IF
+
+	IF NOT push_state_to_chain(sub_state, exitChain) THEN
+		RETURN;
+	END_IF
 END_WHILE
 
+IF NOT empty_chain(entryChain) THEN
+	RETURN;
+END_IF
+
 WHILE THIS^.chain.depth &lt; chain.depth DO
-	IF NOT push_state_to_chain(state_at_depth(THIS^.chain.depth, chain), THIS^.chain) THEN
+	sub_state := state_at_depth(THIS^.chain.depth, chain);
+
+	IF NOT push_state_to_chain(sub_state, THIS^.chain) THEN
+		RETURN;
+	END_IF
+
+	IF NOT push_state_to_chain(sub_state, entryChain) THEN
 		RETURN;
 	END_IF
 
@@ -446,7 +594,7 @@ GoTo := TRUE;
             <Method name="StampAtDepth" ObjectId="7fbcd937-c33d-4d10-ba8f-a37e6e9d4446">
               <interface>
                 <returnType>
-                  <derived name="SysTimeRtc.SYSTIME" />
+                  <derived name="STAMP" />
                 </returnType>
                 <inputVars>
                   <variable name="depth">
@@ -479,7 +627,7 @@ StampAtDepth := stamps[depth];
             <Method name="StampInState" ObjectId="f97e0f66-6e62-45f8-88d5-3a76f53cf44e">
               <interface>
                 <returnType>
-                  <derived name="SysTimeRtc.SYSTIME" />
+                  <derived name="STAMP" />
                 </returnType>
                 <inputVars>
                   <variable name="state">
@@ -498,31 +646,6 @@ StampAtDepth := stamps[depth];
               <addData />
             </Method>
           </data>
-          <data name="http://www.3s-software.com/plcopenxml/property" handleUnknown="implementation">
-            <Property name="Depth" ObjectId="927a87b7-7c7a-449a-b291-6fdfe72640ed">
-              <interface>
-                <returnType>
-                  <derived name="DEPTH" />
-                </returnType>
-                <addData>
-                  <data name="http://www.3s-software.com/plcopenxml/accessmodifiers" handleUnknown="implementation">
-                    <AccessModifiers />
-                  </data>
-                </addData>
-              </interface>
-              <GetAccessor>
-                <interface />
-                <body>
-                  <ST>
-                    <xhtml xmlns="http://www.w3.org/1999/xhtml">Depth := chain.depth;
-</xhtml>
-                  </ST>
-                </body>
-                <addData />
-              </GetAccessor>
-              <addData />
-            </Property>
-          </data>
           <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
             <ObjectId>d2de26fb-a996-4698-b666-69bb6ad1905d</ObjectId>
           </data>
@@ -538,6 +661,9 @@ StampAtDepth := stamps[depth];
               <type>
                 <derived name="STATE" />
               </type>
+              <documentation>
+                <xhtml xmlns="http://www.w3.org/1999/xhtml"> Jump state for which to build the chain of states. </xhtml>
+              </documentation>
             </variable>
           </inputVars>
           <inputVars constant="true">
@@ -558,6 +684,9 @@ StampAtDepth := stamps[depth];
                   </Attributes>
                 </data>
               </addData>
+              <documentation>
+                <xhtml xmlns="http://www.w3.org/1999/xhtml"> Hierarchy of states used to build the chain. </xhtml>
+              </documentation>
             </variable>
           </inputVars>
           <inOutVars>
@@ -565,6 +694,9 @@ StampAtDepth := stamps[depth];
               <type>
                 <derived name="Chain" />
               </type>
+              <documentation>
+                <xhtml xmlns="http://www.w3.org/1999/xhtml"> Chain of states being built for the jump state. </xhtml>
+              </documentation>
             </variable>
           </inOutVars>
           <localVars>
@@ -572,11 +704,17 @@ StampAtDepth := stamps[depth];
               <type>
                 <derived name="Chain" />
               </type>
+              <documentation>
+                <xhtml xmlns="http://www.w3.org/1999/xhtml"> Temporary chain used to build the reverse chain of states leading to the jump state. </xhtml>
+              </documentation>
             </variable>
             <variable name="super_state">
               <type>
                 <derived name="STATE" />
               </type>
+              <documentation>
+                <xhtml xmlns="http://www.w3.org/1999/xhtml"> Temporary variable to hold the current state being processed in the reverse chain. </xhtml>
+              </documentation>
             </variable>
           </localVars>
         </interface>
@@ -597,9 +735,9 @@ END_WHILE
    chain before transferring states from the reverse chain. As a
    by-product, the original chain will be empty and cleared before
    states are transferred from the reverse chain. *)
-WHILE pop_state_from_chain(super_state, chain) DO
-	;
-END_WHILE;
+IF NOT empty_chain(chain) THEN
+	RETURN;
+END_IF
 
 (* Transfer states from the reverse chain back to the original chain.
    This will never fail in practice. The reverse chain fits, so the
@@ -682,6 +820,44 @@ END_FOR
         <addData>
           <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
             <ObjectId>474f5380-84df-40c8-a9f1-a755a27c5461</ObjectId>
+          </data>
+        </addData>
+      </pou>
+      <pou name="empty_chain" pouType="function">
+        <interface>
+          <returnType>
+            <BOOL />
+          </returnType>
+          <inOutVars>
+            <variable name="chain">
+              <type>
+                <derived name="Chain" />
+              </type>
+            </variable>
+          </inOutVars>
+          <localVars>
+            <variable name="super_state">
+              <type>
+                <derived name="STATE" />
+              </type>
+            </variable>
+          </localVars>
+        </interface>
+        <body>
+          <ST>
+            <xhtml xmlns="http://www.w3.org/1999/xhtml">WHILE pop_state_from_chain(super_state, chain) DO
+	;
+END_WHILE;
+
+(* Always returns TRUE, indicating the chain has been emptied, even if
+   it was already empty. *)
+empty_chain := TRUE;
+</xhtml>
+          </ST>
+        </body>
+        <addData>
+          <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+            <ObjectId>cba47213-89d0-4354-8126-57ff7cba8f71</ObjectId>
           </data>
         </addData>
       </pou>
@@ -937,11 +1113,52 @@ state_at_depth := chain.states[depth];
               </documentation>
             </variable>
           </localVars>
+          <documentation>
+            <xhtml xmlns="http://www.w3.org/1999/xhtml">
+===============================================================================
+Function : super_state_of
+
+Purpose:
+    Returns the super-state associated with a state in the hierarchy.
+
+Application:
+    Look up the parent state while traversing a state hierarchy.
+
+Inputs:
+    state       - State whose super-state is to be found.
+    hierarchy   - Array of super-state/sub-state tuples to search.
+
+Return Value:
+    STATE       - The super-state from the first matching tuple, or
+                  EMPTY_STATE when no tuple matches.
+
+Assumptions:
+    - Each tuple associates a sub-state with its super-state.
+    - A sub-state occurs at most once in the hierarchy.
+
+Limitations:
+    - EMPTY_STATE represents both a top-level state and a state not found.
+    - The lookup is linear in the number of hierarchy tuples.
+
+Example:
+
+    super_state := super_state_of(
+        state := sub_state,
+        hierarchy := hierarchy
+    );
+===============================================================================
+</xhtml>
+          </documentation>
         </interface>
         <body>
           <ST>
             <xhtml xmlns="http://www.w3.org/1999/xhtml">super_state_of := EMPTY_STATE;
 
+(* Walk the hierarchy to find the super-state of the given sub-state.
+   Fail if not found by leaving the result as EMPTY_STATE. State's with
+   no super-state amount to top-level states and implicitly have
+   EMPTY_STATE as their super-state. Beneath every such state lies a
+   void of emptiness where infinite possibilities unfold! *)
 FOR depth := LOWER_BOUND(hierarchy, 1) TO UPPER_BOUND(hierarchy, 1) DO
 	IF hierarchy[depth].subState = state THEN
 		super_state_of := hierarchy[depth].superState;
@@ -964,7 +1181,7 @@ END_FOR
   </instances>
   <addData>
     <data name="http://www.3s-software.com/plcopenxml/globalvars" handleUnknown="implementation">
-      <globalVars name="Constants" constant="true">
+      <globalVars name="GVL" constant="true">
         <variable name="LOWER_DEPTH">
           <type>
             <derived name="DEPTH" />
@@ -1005,6 +1222,14 @@ END_FOR
             <simpleValue value="ULINT#0" />
           </initialValue>
         </variable>
+        <variable name="now">
+          <type>
+            <derived name="STAMP" />
+          </type>
+          <initialValue>
+            <simpleValue value="EMPTY_STAMP" />
+          </initialValue>
+        </variable>
         <addData>
           <data name="http://www.3s-software.com/plcopenxml/attributes" handleUnknown="implementation">
             <Attributes>
@@ -1016,13 +1241,67 @@ END_FOR
           <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
             <ObjectId>61a71296-3b39-4b4c-9e67-cea520fcd5cc</ObjectId>
           </data>
+          <data name="http://www.3s-software.com/plcopenxml/mixedattrsvarlist" handleUnknown="implementation">
+            <MixedAttrsVarList>
+              <globalVars name="GVL" constant="true">
+                <variable name="LOWER_DEPTH">
+                  <type>
+                    <derived name="DEPTH" />
+                  </type>
+                  <initialValue>
+                    <simpleValue value="0" />
+                  </initialValue>
+                </variable>
+                <variable name="UPPER_DEPTH">
+                  <type>
+                    <derived name="DEPTH" />
+                  </type>
+                  <initialValue>
+                    <simpleValue value="7" />
+                  </initialValue>
+                </variable>
+                <variable name="ERROR_DEPTH">
+                  <type>
+                    <derived name="DEPTH" />
+                  </type>
+                  <initialValue>
+                    <simpleValue value="-1" />
+                  </initialValue>
+                </variable>
+                <variable name="EMPTY_STATE">
+                  <type>
+                    <derived name="STATE" />
+                  </type>
+                  <initialValue>
+                    <simpleValue value="0" />
+                  </initialValue>
+                </variable>
+                <variable name="EMPTY_STAMP">
+                  <type>
+                    <derived name="STAMP" />
+                  </type>
+                  <initialValue>
+                    <simpleValue value="ULINT#0" />
+                  </initialValue>
+                </variable>
+              </globalVars>
+              <globalVars name="GVL">
+                <variable name="now">
+                  <type>
+                    <derived name="STAMP" />
+                  </type>
+                  <initialValue>
+                    <simpleValue value="EMPTY_STAMP" />
+                  </initialValue>
+                </variable>
+              </globalVars>
+            </MixedAttrsVarList>
+          </data>
         </addData>
       </globalVars>
     </data>
     <data name="http://www.3s-software.com/plcopenxml/libraries" handleUnknown="implementation">
       <Libraries>
-        <Library Name="#SysTimeRtc" Namespace="SysTimeRtc" HideWhenReferencedAsDependency="false" PublishSymbolsInContainer="false" SystemLibrary="false" LinkAllContent="false" DefaultResolution="SysTimeRtc, * (System)" />
-        <Library Name="CmpErrors2 Interfaces, * (System)" Namespace="CmpErrors" HideWhenReferencedAsDependency="false" PublishSymbolsInContainer="false" SystemLibrary="false" LinkAllContent="false" />
         <PlaceholderRedirections>
           <PlaceholderRedirection Placeholder="SysTimeCore" Redirection="SysTimeCore, 3.5.17.0 (System)" />
           <PlaceholderRedirection Placeholder="CAA ResMan" Redirection="CAA Ressource Manager Extern, 3.5.17.0 (CAA Technical Workgroup)" />
@@ -1031,7 +1310,6 @@ END_FOR
           <PlaceholderRedirection Placeholder="CAA MemBlockMan" Redirection="CAA Memory Block Manager Extern, 3.5.18.0 (CAA Technical Workgroup)" />
           <PlaceholderRedirection Placeholder="SysSem Implementation" Redirection="SysSem Implementation, 3.5.17.0 (System)" />
           <PlaceholderRedirection Placeholder="CAA Callback" Redirection="CAA Callback Extern, 3.5.17.0 (CAA Technical Workgroup)" />
-          <PlaceholderRedirection Placeholder="SysTimeRtc" Redirection="SysTimeRtc, 3.5.22.0 (System)" />
         </PlaceholderRedirections>
         <addData>
           <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
@@ -1049,6 +1327,7 @@ END_FOR
           <Folder Name="Functions">
             <Object Name="chain_of_state" ObjectId="138c894b-4a03-4afd-bbc2-6da659dfdbcd" />
             <Object Name="depth_in_chain" ObjectId="474f5380-84df-40c8-a9f1-a755a27c5461" />
+            <Object Name="empty_chain" ObjectId="cba47213-89d0-4354-8126-57ff7cba8f71" />
             <Object Name="lca" ObjectId="5d10cb61-2f6e-4461-bfd9-39cd59cdf83a" />
             <Object Name="pop_state_from_chain" ObjectId="043dfc31-074e-484d-ab50-fa230e42691d" />
             <Object Name="push_state_to_chain" ObjectId="6e1e82fe-9746-408e-afbc-521e5831e7b3" />
@@ -1058,7 +1337,6 @@ END_FOR
           <Folder Name="Function Blocks">
             <Object Name="Machine" ObjectId="d2de26fb-a996-4698-b666-69bb6ad1905d">
               <Object Name="AtDepth" ObjectId="ca5ed2e6-ca50-49d8-88cd-0dab8cedbea2" />
-              <Object Name="Depth" ObjectId="927a87b7-7c7a-449a-b291-6fdfe72640ed" />
               <Object Name="ElapsedInState" ObjectId="e6cab5f2-08eb-4bdc-af17-51b3f85a541b" />
               <Object Name="EnterState" ObjectId="b8eda0f2-6e0f-428e-9915-38edfba9b625" />
               <Object Name="ExitState" ObjectId="dd4a2c26-8cb1-4edd-8adf-6448d3195485" />
@@ -1068,8 +1346,8 @@ END_FOR
               <Object Name="StampInState" ObjectId="f97e0f66-6e62-45f8-88d5-3a76f53cf44e" />
             </Object>
           </Folder>
-          <Folder Name="GlobalConstants">
-            <Object Name="Constants" ObjectId="61a71296-3b39-4b4c-9e67-cea520fcd5cc" />
+          <Folder Name="Globals">
+            <Object Name="GVL" ObjectId="61a71296-3b39-4b4c-9e67-cea520fcd5cc" />
           </Folder>
           <Folder Name="Structs">
             <Object Name="Chain" ObjectId="dc4c0fc4-ef31-44d9-a8aa-977fccdc404b" />
@@ -1077,8 +1355,8 @@ END_FOR
           </Folder>
           <Folder Name="Types">
             <Object Name="DEPTH" ObjectId="7f0c13d3-fb62-4427-b1b3-b6ad6b38fcf5" />
-            <Object Name="STATE" ObjectId="885f4dea-cdf7-450e-8b07-e5bd50c11037" />
             <Object Name="STAMP" ObjectId="d12b5bfe-192d-447d-8764-158d79518544" />
+            <Object Name="STATE" ObjectId="885f4dea-cdf7-450e-8b07-e5bd50c11037" />
           </Folder>
         </Folder>
         <Object Name="Library Manager" ObjectId="8c1463b5-02f2-427d-bd06-9e39d42fcbff" />

@@ -62,7 +62,7 @@
               "TextDocument": {
                 "@Type": "f3878285",
                 "@Value": {
-                  "TextBlobForSerialisation": "(string)super_state_of := EMPTY_STATE;\n\nFOR depth := LOWER_BOUND(hierarchy, 1) TO UPPER_BOUND(hierarchy, 1) DO\n\tIF hierarchy[depth].subState = state THEN\n\t\tsuper_state_of := hierarchy[depth].superState;\n\t\tEXIT;\n\tEND_IF\nEND_FOR\n",
+                  "TextBlobForSerialisation": "(string)super_state_of := EMPTY_STATE;\n\n(* Walk the hierarchy to find the super-state of the given sub-state.\n   Fail if not found by leaving the result as EMPTY_STATE. State's with\n   no super-state amount to top-level states and implicitly have\n   EMPTY_STATE as their super-state. Beneath every such state lies a\n   void of emptiness where infinite possibilities unfold! *)\nFOR depth := LOWER_BOUND(hierarchy, 1) TO UPPER_BOUND(hierarchy, 1) DO\n\tIF hierarchy[depth].subState = state THEN\n\t\tsuper_state_of := hierarchy[depth].superState;\n\t\tEXIT;\n\tEND_IF\nEND_FOR\n",
                   "LineInfoPersistence": "(string)8ca8fc75-a6ed-4011-9060-90ddd6b26a12_Impl_LineIds"
                 }
               }
@@ -74,13 +74,13 @@
               "TextDocument": {
                 "@Type": "f3878285",
                 "@Value": {
-                  "TextBlobForSerialisation": "(string)FUNCTION super_state_of : STATE\nVAR_INPUT\n\tstate : STATE; (* Sub-state for which the super-state is to be looked up *)\nEND_VAR\nVAR_IN_OUT CONSTANT\n\thierarchy : ARRAY[*] OF Tuple; (* Array of state tuples representing the infinite state hierarchy *)\nEND_VAR\nVAR\n\tdepth : DEPTH; (* Loop index for iterating through topology tuples *)\nEND_VAR\n",
+                  "TextBlobForSerialisation": "(string)(*\n===============================================================================\nFunction : super_state_of\n\nPurpose:\n    Returns the super-state associated with a state in the hierarchy.\n\nApplication:\n    Look up the parent state while traversing a state hierarchy.\n\nInputs:\n    state       - State whose super-state is to be found.\n    hierarchy   - Array of super-state/sub-state tuples to search.\n\nReturn Value:\n    STATE       - The super-state from the first matching tuple, or\n                  EMPTY_STATE when no tuple matches.\n\nAssumptions:\n    - Each tuple associates a sub-state with its super-state.\n    - A sub-state occurs at most once in the hierarchy.\n\nLimitations:\n    - EMPTY_STATE represents both a top-level state and a state not found.\n    - The lookup is linear in the number of hierarchy tuples.\n\nExample:\n\n    super_state := super_state_of(\n        state := sub_state,\n        hierarchy := hierarchy\n    );\n===============================================================================\n*)\nFUNCTION super_state_of : STATE\nVAR_INPUT\n\tstate : STATE; (* Sub-state for which the super-state is to be looked up *)\nEND_VAR\nVAR_IN_OUT CONSTANT\n\thierarchy : ARRAY[*] OF Tuple; (* Array of state tuples representing the infinite state hierarchy *)\nEND_VAR\nVAR\n\tdepth : DEPTH; (* Loop index for iterating through topology tuples *)\nEND_VAR\n",
                   "LineInfoPersistence": "(string)8ca8fc75-a6ed-4011-9060-90ddd6b26a12_Decl_LineIds"
                 }
               }
             }
           },
-          "UniqueIdGenerator": "(string)690",
+          "UniqueIdGenerator": "(string)975",
           "POULevel": {
             "@Type": "8e575c5b:Enum",
             "@Value": "Standard"

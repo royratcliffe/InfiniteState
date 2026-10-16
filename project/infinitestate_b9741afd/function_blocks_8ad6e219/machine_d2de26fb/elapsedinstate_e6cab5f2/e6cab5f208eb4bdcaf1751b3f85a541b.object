@@ -38,7 +38,7 @@
               "TextDocument": {
                 "@Type": "f3878285",
                 "@Value": {
-                  "TextBlobForSerialisation": "(string)ElapsedInState := EMPTY_STAMP;\n\nIF SysTimeRtcHighResGet(now) <> CmpErrors.Errors.ERR_OK THEN\n\tRETURN;\nEND_IF\n\nstamp := StampInState(state);\n\nIF stamp = EMPTY_STAMP THEN\n\tRETURN;\nEND_IF\n\nElapsedInState := now - stamp;\n",
+                  "TextBlobForSerialisation": "(string)ElapsedInState := EMPTY_STAMP;\nstamp          := StampInState(state);\n\nIF stamp = EMPTY_STAMP THEN\n\tRETURN;\nEND_IF\n\nElapsedInState := now - stamp;\n",
                   "LineInfoPersistence": "(string)e6cab5f2-08eb-4bdc-af17-51b3f85a541b_Impl_LineIds"
                 }
               }
@@ -50,7 +50,7 @@
               "TextDocument": {
                 "@Type": "f3878285",
                 "@Value": {
-                  "TextBlobForSerialisation": "(string)METHOD ElapsedInState : STAMP\nVAR_INPUT\n\tstate : STATE;\nEND_VAR\nVAR\n\tnow   : STAMP;\n\tstamp : STAMP;\nEND_VAR\n",
+                  "TextBlobForSerialisation": "(string)METHOD ElapsedInState : STAMP\nVAR_INPUT\n\tstate : STATE;\nEND_VAR\nVAR\n\tstamp : STAMP;\nEND_VAR\n",
                   "LineInfoPersistence": "(string)e6cab5f2-08eb-4bdc-af17-51b3f85a541b_Decl_LineIds"
                 }
               }

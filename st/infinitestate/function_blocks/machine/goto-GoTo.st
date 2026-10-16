@@ -15,11 +15,19 @@ END_VAR
 (* --- Implementation --- *)
 GoTo := FALSE;
 
+(* Build the chain of states leading to the target jump state based on the given hierarchy. *)
 IF NOT chain_of_state(state, hierarchy, chain) THEN
 	RETURN;
 END_IF
 
+(* Determine the depth of the least-common ancestor between the current chain and the jump chain. *)
 depth := lca(THIS^.chain, chain);
+
+(* Empty the exit chain before proceeding. This always succeeds in
+   clearing any previously stored exit states. *)
+IF NOT empty_chain(exitChain) THEN
+	RETURN;
+END_IF
 
 {analysis -41}
 WHILE THIS^.chain.depth > depth DO
@@ -30,10 +38,24 @@ WHILE THIS^.chain.depth > depth DO
 	IF NOT pop_state_from_chain(sub_state, THIS^.chain) THEN
 		RETURN;
 	END_IF
+
+	IF NOT push_state_to_chain(sub_state, exitChain) THEN
+		RETURN;
+	END_IF
 END_WHILE
 
+IF NOT empty_chain(entryChain) THEN
+	RETURN;
+END_IF
+
 WHILE THIS^.chain.depth < chain.depth DO
-	IF NOT push_state_to_chain(state_at_depth(THIS^.chain.depth, chain), THIS^.chain) THEN
+	sub_state := state_at_depth(THIS^.chain.depth, chain);
+
+	IF NOT push_state_to_chain(sub_state, THIS^.chain) THEN
+		RETURN;
+	END_IF
+
+	IF NOT push_state_to_chain(sub_state, entryChain) THEN
 		RETURN;
 	END_IF
 
