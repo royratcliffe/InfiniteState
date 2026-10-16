@@ -57,7 +57,7 @@
               "TextDocument": {
                 "@Type": "f3878285",
                 "@Value": {
-                  "TextBlobForSerialisation": "(string)TYPE STAMP : SysTimeRtc.SYSTIME;\nEND_TYPE\n",
+                  "TextBlobForSerialisation": "(string)TYPE STAMP : ULINT;\nEND_TYPE\n",
                   "LineInfoPersistence": "(string)d12b5bfe-192d-447d-8764-158d79518544_Decl_LineIds"
                 }
               }
